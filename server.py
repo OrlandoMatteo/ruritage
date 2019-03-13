@@ -1,9 +1,11 @@
-from flask import Flask, render_template, request, redirect, Response, jsonify
+from flask import Flask, render_template, request, redirect, Response, jsonify,send_file
+import base64
 import random, json
 import mysql.connector
 from mySQLaddons import *
 from pymongo import MongoClient
 import gridfs
+import io
 
 
 app = Flask(__name__)
@@ -18,6 +20,7 @@ with open('dbCredentials.json') as f:
 	rmPath=client.ruritage.rmPath
 	rmBuildings=client.ruritage.rmBuildings
 	rmTowns=client.ruritage.rmTowns
+	photos=client.ruritage.images
 
 @app.route('/')
 def index():
@@ -312,7 +315,7 @@ def towns():
 	            ]
 	        ]
 	    }
-	print rmTowns.find({'coordinates':{ '$geoWithin': { '$geometry': rectangle } } },no_cursor_timeout=True).count()
+	#print rmTowns.find({'coordinates':{ '$geoWithin': { '$geometry': rectangle } } },no_cursor_timeout=True).count()
 	
 
 
@@ -322,6 +325,46 @@ def towns():
 	for point in rmTowns.find({'coordinates':{ '$geoWithin': { '$geometry': rectangle } } },no_cursor_timeout=True):
 		town={x: point[x] for x in point if x not in invalid}
 		output['features'].append(town)
+
+
+	return json.dumps(output)
+
+@app.route('/images',methods=['GET','POST'])
+def images():
+	bounds=ast.literal_eval(request.args.get('bounds').encode('UTF8'))
+	rectangle={
+			"type": "Polygon",
+			"coordinates": [
+				[
+	                [
+	                    bounds['_southWest']['lng'],bounds['_northEast']['lat']
+	                ],
+	                [
+	                    bounds['_northEast']['lng'],bounds['_northEast']['lat']
+	                ],
+	                [
+	                    bounds['_northEast']['lng'],bounds['_southWest']['lat']
+	                ],
+	                [
+	                    bounds['_southWest']['lng'],bounds['_southWest']['lat']
+	                ],
+	                [
+	                    bounds['_southWest']['lng'],bounds['_northEast']['lat']
+	                ]
+	            ]
+	        ]
+	    }
+	#print images.find({'coordinates':{ '$geoWithin': { '$geometry': rectangle } } },no_cursor_timeout=True).count()
+	
+
+
+	invalid={'_id'}
+	output={'images':[]}
+	print 'pippo'
+	for point in photos.find({'geometry.coordinates':{ '$geoWithin': { '$geometry': rectangle } } },no_cursor_timeout=True):
+		for grid_out in fs.find({'filename':point['filename']},no_cursor_timeout=True):
+			image_binary= grid_out.read()
+			output['images'].append(base64.b64encode(image_binary))
 
 
 	return json.dumps(output)

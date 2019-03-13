@@ -295,7 +295,6 @@ function updateMap() {
 
         success: function(response) {
             x=response;
-            console.log(x);
             if (roles.length==0) {
                 populateMap(x,roles);
             }
@@ -472,7 +471,7 @@ function onEachBuilding(feature, layer) {
     else{
         layer.bindTooltip(feature.properties.name)
     }
-    
+    console.log(feature);
     layer.bindPopup(feature.properties.description,{autoPan:false, closePopupOnClick:false});
     layer.on('click', function(e){
         //main_map.setView(e.latlng);
@@ -580,13 +579,14 @@ function TownStyle(feature,latlng) {
 }
 
 function onEachTown(feature, layer) {  
-    layer.bindTooltip(feature.properties.TOWN_NAME)
-    
-    layer.bindPopup(feature.properties.DESCRIPTION,{autoPan:false, closePopupOnClick:false});
+    layer.bindTooltip(feature.properties.TOWN_NAME) 
+    var content='<h4 id="title">'+feature.properties.TOWN_NAME+'</h4>';
+    var lateral_content='<font size="2"><u onClick="hideDescription()" style="cursor: pointer;">Minimize/Expand</u>&ensp;<u style="cursor: pointer;" onClick="closeLateral()">Close</u></font>'+content+'<br><font size="2"><div id="extra"><font size="2"><b>Description</b><p>'+feature.properties.DESCRIPTION+'</p>'
+    layer.bindPopup(content,{autoPan:false,autoclose:false});
     layer.on('click', function(e){
         //main_map.setView(e.latlng);
-        $('#lateral').html(layer.getPopup().getContent())
-
+        $('#lateral').html(lateral_content)
+        //layer.getPopup().openPopup();
     });
 
 }
@@ -617,13 +617,15 @@ function addTowns() {
     
 }
 
-function hideOnZoom(areas,buildings){
+function hideOnZoom(){
     if (main_map.getZoom() <6){
         zoomflag=0;
         main_map.eachLayer(function (layer){
         if (layer.feature) {
             if(!layer.feature.properties.Role){
                 main_map.removeLayer(layer);
+                areaLayer=false;
+                townLayer=false;
             }
         }
         });
@@ -650,13 +652,17 @@ function hideOnZoom(areas,buildings){
     if (main_map.getZoom()>=10 ){
         if (townLayer==false) {
             addTowns();
+
             townLayer=true;
             $('#townButton').toggle();
+            createSlideShow();
+            $('#slideShow').toggle();
 
         }
     }
     else{
-        $('#townButton')[0].style.display='none'      
+        $('#townButton')[0].style.display='none'
+        $('#slideShow')[0].style.display='none'      
         main_map.eachLayer(function (layer){
             if (layer.feature && !layer.feature.properties.Role) {
                 if(layer.options.pane=='markerPane'){
@@ -674,7 +680,8 @@ function hideOnMove() {
     if (layer.feature) {
         if(!layer.feature.properties.Role){
             if(layer.options.pane=='markerPane'){
-            main_map.removeLayer(layer);
+
+                    main_map.removeLayer(layer);           
         }
         }
     }
@@ -682,6 +689,7 @@ function hideOnMove() {
     // Uncomment addBuildings() if you want to show an example of buildings
     //addBuildings();
     addTowns();
+    createSlideShow();
 }
 }
 
@@ -757,4 +765,36 @@ function hideDescription() {
 
 function closeLateral() {
     $('#lateral').html('');
+}
+
+
+function createSlideShow() {
+    bounds=main_map.getBounds();
+    var queryResult=$.ajax({
+        method: 'GET',      
+        url: "/images",
+        data: {bounds:JSON.stringify(bounds)},
+        dataType: 'json',
+
+        success: function(response) {
+            x=response;
+            updateSlideshow(x);
+            
+    }});
+
+}
+
+
+function updateSlideshow(argument) {
+    photos=argument.images;
+    slideShow='';
+    for (var i = 0; i < photos.length; i++) {
+        var img = '<img src="data:image/jpg;base64,'+photos[i]+'" width="300px"/>'
+        //img.attr('src', 'data:image/png;base64,' + photos[i]);
+        var slide='<div class="mySlides">'+img+'</div>';
+        slideShow=slideShow+slide;
+       // console.log(photos[i]);
+    }
+    slideShow=slideShow+'<a class="prev" onclick="plusSlides(-1)">&#10094;</a><a class="next" onclick="plusSlides(1)">&#10095;</a>'
+    $('#slideShow').html(slideShow);
 }
