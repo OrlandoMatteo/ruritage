@@ -21,6 +21,7 @@ with open('dbCredentials.json') as f:
 	rmBuildings=client.ruritage.rmBuildings
 	rmTowns=client.ruritage.rmTowns
 	photos=client.ruritage.images
+	sites=client.ruritage.sites
 
 @app.route('/')
 def index():
@@ -329,6 +330,48 @@ def towns():
 
 	return json.dumps(output)
 
+@app.route('/sites',methods=['GET','POST'])
+def Sites():
+	bounds=ast.literal_eval(request.args.get('bounds').encode('UTF8'))
+	rectangle={
+			"type": "Polygon",
+			"coordinates": [
+				[
+	                [
+	                    bounds['_southWest']['lng'],bounds['_northEast']['lat']
+	                ],
+	                [
+	                    bounds['_northEast']['lng'],bounds['_northEast']['lat']
+	                ],
+	                [
+	                    bounds['_northEast']['lng'],bounds['_southWest']['lat']
+	                ],
+	                [
+	                    bounds['_southWest']['lng'],bounds['_southWest']['lat']
+	                ],
+	                [
+	                    bounds['_southWest']['lng'],bounds['_northEast']['lat']
+	                ]
+	            ]
+	        ]
+	    }
+	#print rmTowns.find({'coordinates':{ '$geoWithin': { '$geometry': rectangle } } },no_cursor_timeout=True).count()
+	
+
+
+	invalid={'_id'}
+	output={ "type": "FeatureCollection", "features": []}
+
+	for point in sites.find({'coordinates':{ '$geoWithin': { '$geometry': rectangle } } },no_cursor_timeout=True):
+		site={x: point[x] for x in point if x not in invalid}
+		output['features'].append(site)
+
+
+	return json.dumps(output)
+
+
+
+
 @app.route('/images',methods=['GET','POST'])
 def images():
 	bounds=ast.literal_eval(request.args.get('bounds').encode('UTF8'))
@@ -360,9 +403,11 @@ def images():
 
 	invalid={'_id'}
 	output={'images':[]}
-	print 'pippo'
-	for point in photos.find({'geometry.coordinates':{ '$geoWithin': { '$geometry': rectangle } } },no_cursor_timeout=True):
-		for grid_out in fs.find({'filename':point['filename']},no_cursor_timeout=True):
+
+	#Serve un ciclo che cerchi tutte le immagini per ogni sito edificio citta etc, ogni cosa che puo avere immagini
+
+	for point in sites.find({'coordinates':{ '$geoWithin': { '$geometry': rectangle } } },no_cursor_timeout=True):
+		for grid_out in fs.find({'filename':point['properties']['IMAGE']},no_cursor_timeout=True):
 			image_binary= grid_out.read()
 			output['images'].append(base64.b64encode(image_binary))
 

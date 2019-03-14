@@ -560,6 +560,7 @@ function addBuildings() {
     
 }
 
+//CODE TO ADD CITY TO THE MAP
 function TownStyle(feature,latlng) {
     /*var TownIcon = L.AwesomeMarkers.icon({
                             icon: 'city',
@@ -578,13 +579,14 @@ function TownStyle(feature,latlng) {
     return marker
 }
 
+
 function onEachTown(feature, layer) {  
     layer.bindTooltip(feature.properties.TOWN_NAME) 
     var content='<h4 id="title">'+feature.properties.TOWN_NAME+'</h4>';
     var lateral_content='<font size="2"><u onClick="hideDescription()" style="cursor: pointer;">Minimize/Expand</u>&ensp;<u style="cursor: pointer;" onClick="closeLateral()">Close</u></font>'+content+'<br><font size="2"><div id="extra"><font size="2"><b>Description</b><p>'+feature.properties.DESCRIPTION+'</p>'
-    layer.bindPopup(content,{autoPan:false,autoclose:false});
+    //layer.bindPopup(content,{autoPan:false,autoclose:false});
     layer.on('click', function(e){
-        //main_map.setView(e.latlng);
+        main_map.setView(e.latlng,12);
         $('#lateral').html(lateral_content)
         //layer.getPopup().openPopup();
     });
@@ -614,7 +616,66 @@ function addTowns() {
             placeTowns(x);
             
     }});
-    
+}
+
+
+//CODE TO ADD SITES TO THE MAP
+
+function SiteStyle(feature,latlng) {
+    var SiteIcon = L.icon({
+                iconUrl: 'static/img/site.png',
+                iconSize:     [42,42], // size of the icon
+            });
+
+                //return L.marker(latlng, {icon: TownIcon, riseOnHover: true});
+    var marker=L.marker(latlng, {icon: SiteIcon, riseOnHover: true});
+    return marker
+}
+
+function onEachSite(feature, layer) {
+    console.log(feature) ; 
+    layer.bindTooltip(feature.properties.NAME) 
+    var content='<h4 id="title">'+feature.properties.NAME+'</h4>';
+    if (feature.properties.DESCRIPTION!='Not available') {
+        var lateral_content='<font size="2"><u onClick="hideDescription()" style="cursor: pointer;">Minimize/Expand</u>&ensp;<u style="cursor: pointer;" onClick="closeLateral()">Close</u></font>'+content+'<br><font size="2"><div id="extra"><font size="2"><b>Description</b><p>'+feature.properties.DESCRIPTION+'</p></div>'
+    }
+    else{
+        var lateral_content='<font size="2"><u onClick="hideDescription()" style="cursor: pointer;">Minimize/Expand</u>&ensp;<u style="cursor: pointer;" onClick="closeLateral()">Close</u></font>'+content+'<br><font size="2"><div id="extra"><font size="2"></div>'
+    }
+    layer.bindPopup(content,{autoPan:false,autoclose:false});
+    layer.on('click', function(e){
+        main_map.setView(e.latlng,12);
+        $('#lateral').html(lateral_content)
+        //layer.getPopup().openPopup();
+    });
+
+}
+
+function placeSite(data){
+    for (var i = 0; i < data.features.length; i++) {
+        x=data.features[i];
+        //var geoJsonBuildings=L.geoJson(x,{onEachFeature:onEachBuilding}).addTo(main_map);
+        var geoJsonSites=L.geoJson(x,{pointToLayer:SiteStyle, onEachFeature:onEachSite,pane:'Sites'}).addTo(main_map);
+        //geoJsonBuildings.setStyle(function(feature) {if(feature.geometry.type!='Point'){return {color: "#472502"}}});
+        Sites.addLayer(geoJsonSites); 
+    }
+}
+
+function addSites() {
+    bounds=main_map.getBounds();
+    var queryResult=$.ajax({
+        method: 'GET',      
+        url: "/sites",
+        data: {bounds:JSON.stringify(bounds)},
+        dataType: 'json',
+
+        success: function(response) {
+            x=response;
+            placeSite(x);
+            
+    }});
+
+
 }
 
 function hideOnZoom(){
@@ -652,17 +713,23 @@ function hideOnZoom(){
     if (main_map.getZoom()>=10 ){
         if (townLayer==false) {
             addTowns();
+            addSites();
 
             townLayer=true;
             $('#townButton').toggle();
+            $('#siteButton').toggle();
+            $('#imageContainer').toggle()
+            //$('#imageFlow')[0].style.display='none'  
             createSlideShow();
-            $('#slideShow').toggle();
+            
 
         }
     }
     else{
         $('#townButton')[0].style.display='none'
-        $('#slideShow')[0].style.display='none'      
+        $('#siteButton')[0].style.display='none'
+        $('#imageContainer')[0].style.display='none'
+        //$('#slideShow')[0].style.display='none'     
         main_map.eachLayer(function (layer){
             if (layer.feature && !layer.feature.properties.Role) {
                 if(layer.options.pane=='markerPane'){
@@ -689,6 +756,7 @@ function hideOnMove() {
     // Uncomment addBuildings() if you want to show an example of buildings
     //addBuildings();
     addTowns();
+    addSites();
     createSlideShow();
 }
 }
@@ -751,6 +819,28 @@ function showTowns() {
     }
 
 }
+function showSites() {
+    if (siteLayer==true) {
+        siteLayer=false;
+        main_map.eachLayer(function (layer){
+            if (layer.feature && !layer.feature.properties.Role) {
+                if(layer.options.pane=='markerPane'){
+                    if (layer.feature.geometry.properties.CH_TYPE) {
+                    main_map.removeLayer(layer);
+                    }
+                }
+            }
+            });
+    }
+    else{
+        addSites();
+        siteLayer=true;
+    }
+
+}
+
+
+
 
 
 function showActors() {
@@ -778,7 +868,8 @@ function createSlideShow() {
 
         success: function(response) {
             x=response;
-            updateSlideshow(x);
+            //updateSlideshow(x);
+            updateFlow(x);
             
     }});
 
@@ -798,3 +889,21 @@ function updateSlideshow(argument) {
     slideShow=slideShow+'<a class="prev" onclick="plusSlides(-1)">&#10094;</a><a class="next" onclick="plusSlides(1)">&#10095;</a>'
     $('#slideShow').html(slideShow);
 }
+
+///testttttttt
+function updateFlow(argument) {
+
+    photos=argument.images;
+    slideShow='';
+    for (var i = 0; i < photos.length; i++) {
+        var img ='<div class="swiper-slide" style="width:300px"><img src="data:image/jpg;base64,'+photos[i]+'" height="150px margin-left: auto; margin-right: auto; display: block;"/></div>'
+        //img.attr('src', 'data:image/png;base64,' + photos[i]);
+        slideShow=slideShow+img;
+       // console.log(photos[i]);
+    }
+    $('#imageContainer').html(slideShow);
+    swiper.update();
+
+
+}
+

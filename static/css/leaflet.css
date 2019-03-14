@@ -139,6 +139,10 @@
 .leaflet-left {
 	left: 0;
 	}
+
+.leaflet-right2 {
+	right: 30;
+	}
 .leaflet-control {
 	float: left;
 	clear: both;
