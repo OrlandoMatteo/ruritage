@@ -97,16 +97,32 @@ function createPopup(feature_properties) {
 }
 
 function onEachEntity(feature, layer) {
-
+/*
         layer.bindTooltip(feature.properties.Name);
         content=createPopup(feature.properties);
-        layer.bindPopup(content,{maxHeight:200,maxWidth:400});
+        layer.bindPopup('<h4 id="title">'+feature.properties.Name+'</h4> ',{maxHeight:200,maxWidth: main_map.getSize()[1]});
         layer.on('click', function(e){
             main_map.setView(e.latlng, 9);
-            $('#lateral').html('<font size="2"><u onClick="hideDescription()" style="cursor: pointer;">Minimize/Expand</u>&ensp;<u style="cursor: pointer;" onClick="closeLateral()">Close</u></font>'+layer.getPopup().getContent())
+            $('#lateral').html('<font size="2"><u onClick="hideDescription()" style="cursor: pointer;">Minimize/Expand</u>&ensp;<u style="cursor: pointer;" onClick="closeLateral()">Close</u></font>'+content)
 
         });
-
+*/
+    id=feature.properties.ID
+        var content='';
+        main_map.eachLayer(function (livello){
+            if (livello.feature) {
+                if(livello.feature.properties.Role){
+                    if (livello.feature.properties.ID==id){
+                        content=createPopup(livello.feature.properties);
+                        layer.bindPopup('<h4 id="title">'+feature.properties.Name+'</h4> ',{maxHeight:200,maxWidth:400});
+                    }
+                }
+            }
+            });
+        layer.on('click', function(e){
+                main_map.setView(e.latlng, 9);
+                $('#lateral').html('<font size="2"><u onClick="hideDescription()" style="cursor: pointer;">Minimize/Expand</u>&ensp;<u style="cursor: pointer;" onClick="closeLateral()">Close</u></font>'+content);
+            });
 }
 function RMStyle(feature,latlng){
     switch (feature.properties["SIA"]){
@@ -303,6 +319,7 @@ function updateMap() {
                 for (var i = 0; i < roles.length; i++) {
                     
                     populateMap(x,roles);
+
                   }
             } 
             //populateMap(x,roles);
@@ -369,18 +386,20 @@ function selectall() {
 
 function onEachArea(feature,layer) {
     id=feature.properties.ID
+    var content='';
     main_map.eachLayer(function (livello){
         if (livello.feature) {
             if(livello.feature.properties.Role){
                 if (livello.feature.properties.ID==id){
-                    layer.bindPopup(livello.getPopup().getContent(),{maxHeight:200,maxWidth:400});
+                    content=createPopup(livello.feature.properties);
+                    layer.bindPopup('<h4 id="title">'+livello.feature.properties.Name+'</h4> ',{maxHeight:200,maxWidth:400});
                 }
             }
         }
         });
     layer.on('click', function(e){
             main_map.setView(e.latlng, 9);
-            $('#lateral').html('<font size="2"><u onClick="hideDescription()" style="cursor: pointer;">Minimize/Expand</u>&ensp;<u style="cursor: pointer;" onClick="closeLateral()">Close</u></font>'+layer.getPopup().getContent())
+            $('#lateral').html('<font size="2"><u onClick="hideDescription()" style="cursor: pointer;">Minimize/Expand</u>&ensp;<u style="cursor: pointer;" onClick="closeLateral()">Close</u></font>'+content);
         });
     //layer.bindTooltip(text,{sticky:true});
     
@@ -471,7 +490,6 @@ function onEachBuilding(feature, layer) {
     else{
         layer.bindTooltip(feature.properties.name)
     }
-    console.log(feature);
     layer.bindPopup(feature.properties.description,{autoPan:false, closePopupOnClick:false});
     layer.on('click', function(e){
         //main_map.setView(e.latlng);
@@ -524,7 +542,6 @@ function BuildingStyle(feature,latlng){
             return marker;
 
         case "Polygon":
-            console.log('pippo');
             polygon=L.polygon(latlng);
             polygon.setStyle({fillColor: '#ff0000'});
             return polygon;
@@ -562,7 +579,7 @@ function addBuildings() {
 
 //CODE TO ADD CITY TO THE MAP
 function TownStyle(feature,latlng) {
-    /*var TownIcon = L.AwesomeMarkers.icon({
+   /* var TownIcon = L.AwesomeMarkers.icon({
                             icon: 'city',
                             iconColor: 'black',
                             markerColor: 'white',
@@ -570,12 +587,26 @@ function TownStyle(feature,latlng) {
                             extraClasses: 'fa-rotate-0'
                             });*/
     var TownIcon = L.icon({
-                iconUrl: 'static/img/town2.png',
+                iconUrl: 'static/img/town4.png',
                 iconSize:     [42,42], // size of the icon
             });
 
+
                 //return L.marker(latlng, {icon: TownIcon, riseOnHover: true});
     var marker=L.marker(latlng, {icon: TownIcon, riseOnHover: true});
+    marker.on('click', function() {
+    this.setIcon(
+        L.icon({
+                iconUrl: 'static/img/town4.png',
+                iconSize:     [42,42], // size of the icon
+            })
+    );
+
+    });
+
+
+    //Uncomment to have the same markers
+    //var marker=L.marker(latlng, {riseOnHover: true});
     return marker
 }
 
@@ -586,7 +617,11 @@ function onEachTown(feature, layer) {
     var lateral_content='<font size="2"><u onClick="hideDescription()" style="cursor: pointer;">Minimize/Expand</u>&ensp;<u style="cursor: pointer;" onClick="closeLateral()">Close</u></font>'+content+'<br><font size="2"><div id="extra"><font size="2"><b>Description</b><p>'+feature.properties.DESCRIPTION+'</p>'
     //layer.bindPopup(content,{autoPan:false,autoclose:false});
     layer.on('click', function(e){
-        main_map.setView(e.latlng,12);
+        //main_map.setView(e.latlng,12);
+        //console.log(layer);
+        
+        
+        layer.options.icon.options.iconUrl='static/img/town2_red.png';
         $('#lateral').html(lateral_content)
         //layer.getPopup().openPopup();
     });
@@ -622,18 +657,18 @@ function addTowns() {
 //CODE TO ADD SITES TO THE MAP
 
 function SiteStyle(feature,latlng) {
-    var SiteIcon = L.icon({
+    /*var SiteIcon = L.icon({
                 iconUrl: 'static/img/site.png',
                 iconSize:     [42,42], // size of the icon
             });
 
                 //return L.marker(latlng, {icon: TownIcon, riseOnHover: true});
-    var marker=L.marker(latlng, {icon: SiteIcon, riseOnHover: true});
+    var marker=L.marker(latlng, {icon: SiteIcon, riseOnHover: true});*/
+    var marker=L.marker(latlng, {riseOnHover: true});
     return marker
 }
 
 function onEachSite(feature, layer) {
-    console.log(feature) ; 
     layer.bindTooltip(feature.properties.NAME) 
     var content='<h4 id="title">'+feature.properties.NAME+'</h4>';
     if (feature.properties.DESCRIPTION!='Not available') {
@@ -907,3 +942,42 @@ function updateFlow(argument) {
 
 }
 
+function createDropwdown() {
+    var roles=[]
+    var sias=[]
+    
+    checkboxesRole=document.getElementById('roles');
+    for (i=0;i<checkboxesRole.children.length;i++){
+        if (checkboxesRole.children[i].type=="checkbox")
+        {
+            roles.push(checkboxesRole.children[i].value)}
+
+        }
+
+    checkboxesSIA=document.getElementById('sias');
+    for (i=0;i<checkboxesSIA.children.length;i++){
+        if (checkboxesSIA.children[i].type=="checkbox")
+        {                sias.push(checkboxesSIA.children[i].value)}
+        }
+    var queryResult=$.ajax({
+        method: 'GET',      
+        url: "/querySIA",
+        data: {Roles:JSON.stringify(roles), SIAs:JSON.stringify(sias)},
+        dataType: 'json',
+
+        success: function(response) {
+            result=response;
+            var dropdowncontent=''
+            for (var i = 0; i < result.features.length; i++) {
+                if (result.features[i].properties.Role=="RM")
+                {   
+                    dropdowncontent=dropdowncontent+'<a class="dropdown-item" href="#">'+result.features[i].properties.Name+'</a>'
+                }
+            }
+            $('#rmlist').html(dropdowncontent);
+            //populateMap(x,roles);
+            //console.log(x);
+            
+    }});
+
+}
