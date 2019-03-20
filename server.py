@@ -196,17 +196,19 @@ def RMAreas():
 	# 	for grid_out in fs.find({'filename':document},no_cursor_timeout=True):
 	# 		output['data'].append(json.loads(grid_out.read()))
 
-	output={}
-	output['data']=[]
-	document='LocalArea.json'
-	for grid_out in fs.find({'filename':document},no_cursor_timeout=True):
-		output['data'].append(json.loads(grid_out.read()))
-
 	#output={}
 	#output['data']=[]
 	#document='LocalArea.json'
-	#for grid_out in fs.find({},no_cursor_timeout=True):
-	#	output['data'].append(json.loads(grid_out.read()))	
+	#for grid_out in fs.find({'filename':document},no_cursor_timeout=True):
+	#		output['data'].append(json.loads(grid_out.read()))
+
+	output={}
+	output['data']=[]
+	document='LocalArea.json'
+	invalid={'_id'}
+	for pol in rmAreas.find({},no_cursor_timeout=True):
+		area={x: pol[x] for x in pol if x not in invalid}
+		output['data'].append(area)	
 
 	return json.dumps(output)
 

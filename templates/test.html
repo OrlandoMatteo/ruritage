@@ -51,6 +51,7 @@
     -->
 
     <link rel="stylesheet" type="text/css" href="static/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="static/css/custom.css">
     <link rel="stylesheet" href="http://flatlogic.github.io/awesome-bootstrap-checkbox/demo/build.css"/>
     <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
 
@@ -113,28 +114,27 @@ img.resize {
     </a>
     <a class="nav-link" href="/">Atlas</a>
     <a class="nav-link" href="/bestpractices">Lessons Learned</a>
-    
   </nav>
 </div>
 <div class='row'>
-            <div class="col-lg-12" style="margin-top: 115px; z-index: 90000">
-                <div class="dropdown">
-  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    Dropdown button
-  </button>
-  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-    <a class="dropdown-item" href="#">Action</a>
-    <a class="dropdown-item" href="#">Another action</a>
-    <a class="dropdown-item" href="#">Something else here</a>
-  </div>
-</div>
+            <div class="col-lg-12" style="position: fixed;margin-top: 115px; z-index: 80000;background-color: white ">
+                <div class="cdropdown">
+                  <button class="cdropbtn">Role Models</button>
+                  <div class="cdropdown-content" id="rmlist">
+                  </div>
+                </div>
+                <div class="cdropdown">
+                  <button class="cdropbtn">Replicators</button>
+                  <div class="cdropdown-content" id="rlist">
+                  </div>
+                </div>
+            </div>
 
-            </div>
-            </div>
+</div>
 
         <div class='row'>
                 <div class="folium-map" id="main_map" ></div> 
-            <div class='' style="z-index: 500; max-width: 435px;margin-top: 250px;">
+            <div class='' style="z-index: 500; max-width: 435px;margin-top: 160px;">
                 <div class="rounddiv3">
                     <button class="btn btn-primary" onclick="showActors()"  style="background-color: #023fa7">RM/R</button>
                     <button class="btn btn-primary" onclick="showSIAs()">SIAs</button>
@@ -143,9 +143,9 @@ img.resize {
 
                 </div>
                 <div id="roles" style="" class="rounddiv"><h4>Show on the map:</h4>
-                    <input type="checkbox" class="styled" value="RoleModel" onchange="updateMap()" checked="true"> <i class="fas fa-trophy"></i> <b>Role Model </b>
+                    <input type="checkbox" class="styled" value="RoleModel" onchange="updateMap()" checked="true"><!-- <i class="fas fa-trophy"></i>--> <b>Role Model </b>
                     <br>
-                    <input type="checkbox" class="styled" value="Replicator" onchange="updateMap()" checked="true"> <i class="fas fa-user"></i> <b>Replicator</b>
+                    <input type="checkbox" class="styled" value="Replicator" onchange="updateMap()" checked="true"> <!-- <i class="fas fa-user"></i>--> <b>Replicator</b>
                     <br>    
                 </div>
                 <br>
@@ -254,10 +254,10 @@ function showSlides(n) {
         layers: [],
         worldCopyJump: false,
         crs: L.CRS.EPSG3857,
-        zoomControl: true,
+        zoomControl: false,
         });
 
-    
+    zoomControl=L.control.zoom({position:'topright'}).addTo(main_map);
     
     var openstreetmap_layer = L.tileLayer(
         'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
@@ -278,7 +278,9 @@ function showSlides(n) {
     var example=L.tileLayer('https://api.mapbox.com/styles/v1/matteo-orlando/cjrcb08ss2adz2to56dqze3e2/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoibWF0dGVvLW9ybGFuZG8iLCJhIjoiY2puYndpaWxtMDhpZjN3cGU0cjYxNjl2MyJ9.seN7FeS88tx9yYwqMk5QIw',{opacity:0.5});
 
 
-    var camino=L.tileLayer('https://api.mapbox.com/styles/v1/matteo-orlando/cjrw4js6t20ed1frv8uui4k2k/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoibWF0dGVvLW9ybGFuZG8iLCJhIjoiY2puYndpaWxtMDhpZjN3cGU0cjYxNjl2MyJ9.seN7FeS88tx9yYwqMk5QIw')
+    var camino=L.tileLayer('https://api.mapbox.com/styles/v1/matteo-orlando/cjrw4js6t20ed1frv8uui4k2k/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoibWF0dGVvLW9ybGFuZG8iLCJhIjoiY2puYndpaWxtMDhpZjN3cGU0cjYxNjl2MyJ9.seN7FeS88tx9yYwqMk5QIw');
+
+    var topology=L.tileLayer('https://tile.thunderforest.com/landscape/{z}/{x}/{y}.png?apikey=d8abaa72b3604758be5fc3d52354cff0');
 
     var imageUrl='/static/img/FCM_21-1.png'
     var imageBounds=[[5.985,-77.5],[3.465,-73.9]]
@@ -303,7 +305,7 @@ function showSlides(n) {
 
     
 var basemap={"Basemap":openstreetmap_layer};
-var overlay={'Satellite':Esri_WorldImagery, 'example':camino,'image':image_layer,'Paths':Paths,'Areas':Areas,'Buildings':Buildings};
+var overlay={'Satellite':Esri_WorldImagery, 'topology':topology, 'example':camino,'image':image_layer,'Paths':Paths,'Areas':Areas,'Buildings':Buildings};
 L.control.layers(basemap, overlay).addTo(main_map);
 
 
@@ -348,7 +350,7 @@ hideOnMove();
 
 
 window.onLoad=updateMap();
-//window.onLoad=createDropwdown()   
+window.onLoad=createDropwdown()   
 
 </script>
 

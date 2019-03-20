@@ -108,21 +108,35 @@ function onEachEntity(feature, layer) {
         });
 */
     id=feature.properties.ID
+   
+    main_map.eachLayer(function (livello){
+        if (livello.feature) {
+            if(livello.feature.properties.Role){
+                if (livello.feature.properties.ID==id){
+                    //content=createPopup(livello.feature.properties);
+                    layer.bindPopup('<h4 id="title">'+feature.properties.Name+'</h4> ',{maxHeight:200,maxWidth:400});
+                }
+            }
+        }
+    });
+    layer.on('click', function(e){
         var content='';
+        id=layer.feature.properties.ID;
         main_map.eachLayer(function (livello){
             if (livello.feature) {
                 if(livello.feature.properties.Role){
                     if (livello.feature.properties.ID==id){
                         content=createPopup(livello.feature.properties);
-                        layer.bindPopup('<h4 id="title">'+feature.properties.Name+'</h4> ',{maxHeight:200,maxWidth:400});
+                        main_map.setView(e.latlng, 9);
+                        $('#lateral').html('<font size="2"><u onClick="hideDescription()" style="cursor: pointer;">Minimize/Expand</u>&ensp;<u style="cursor: pointer;" onClick="closeLateral()">Close</u></font>'+content);
                     }
                 }
             }
-            });
-        layer.on('click', function(e){
-                main_map.setView(e.latlng, 9);
-                $('#lateral').html('<font size="2"><u onClick="hideDescription()" style="cursor: pointer;">Minimize/Expand</u>&ensp;<u style="cursor: pointer;" onClick="closeLateral()">Close</u></font>'+content);
-            });
+        });
+
+        
+    });
+        
 }
 function RMStyle(feature,latlng){
     switch (feature.properties["SIA"]){
@@ -411,7 +425,7 @@ function drawArea(data) {
         var RMAreas=L.geoJson(x,{ onEachFeature:onEachArea}).addTo(main_map);
         //RMAreas.setStyle(function(feature) {return {color:'#472502'}});
         RMAreas.setStyle(function(feature) {
-            switch (feature.properties["SIA"])
+            switch (feature.geometry.properties["SIA"])
             {
 
                 case "Sustainable food production":
@@ -578,6 +592,15 @@ function addBuildings() {
 }
 
 //CODE TO ADD CITY TO THE MAP
+function townSidebar(properties) {
+    console.log(properties);
+    conten='<font size="2"><u onClick="hideDescription()" style="cursor: pointer;">Minimize/Expand</u>&ensp;<u style="cursor: pointer;" onClick="closeLateral()">Close</u></font>';
+    content=content+'<h4 id="title">'+properties.TOWN_NAME+'</h4> <br><font size="2"><div id="extra"><font size="2"><br><b>Description</b><p>'+properties.DESCRIPTION+'</p>';
+    content=content+'<p><b>Additional Information</b><br>Temporal range: '+properties['TEMPORAL RANGE']+'<br>Current: '+properties['CURRENT']+'<br>Historical: '+properties['HISTORICAL']+'<br></p>' ;
+    return content
+}
+
+
 function TownStyle(feature,latlng) {
    /* var TownIcon = L.AwesomeMarkers.icon({
                             icon: 'city',
@@ -615,6 +638,7 @@ function onEachTown(feature, layer) {
     layer.bindTooltip(feature.properties.TOWN_NAME) 
     var content='<h4 id="title">'+feature.properties.TOWN_NAME+'</h4>';
     var lateral_content='<font size="2"><u onClick="hideDescription()" style="cursor: pointer;">Minimize/Expand</u>&ensp;<u style="cursor: pointer;" onClick="closeLateral()">Close</u></font>'+content+'<br><font size="2"><div id="extra"><font size="2"><b>Description</b><p>'+feature.properties.DESCRIPTION+'</p>'
+    lateral_content=townSidebar(feature.properties);
     //layer.bindPopup(content,{autoPan:false,autoclose:false});
     layer.on('click', function(e){
         //main_map.setView(e.latlng,12);
@@ -967,17 +991,30 @@ function createDropwdown() {
 
         success: function(response) {
             result=response;
-            var dropdowncontent=''
+            var dropdowncontentRM=''
+            var dropdowncontentR=''
             for (var i = 0; i < result.features.length; i++) {
-                if (result.features[i].properties.Role=="RM")
+                if (result.features[i].properties.Role=="RM")                    
                 {   
-                    dropdowncontent=dropdowncontent+'<a class="dropdown-item" href="#">'+result.features[i].properties.Name+'</a>'
+                    dropdowncontentRM=dropdowncontentRM+'<a href="#" onClick="centerMap('+result.features[i].geometry.coordinates[0]+' ,'+result.features[i].geometry.coordinates[1]+')">'+result.features[i].properties.Name+' (SIA: '+result.features[i].properties.SIA+')</a>'
+                }
+                if (result.features[i].properties.Role=="R")
+                {   
+                    dropdowncontentR=dropdowncontentR+'<a href="#" onClick="centerMap('+result.features[i].geometry.coordinates[0]+' ,'+result.features[i].geometry.coordinates[1]+')">'+result.features[i].properties.Name+' (SIA: '+result.features[i].properties.SIA+')</a>'
                 }
             }
-            $('#rmlist').html(dropdowncontent);
+            $('#rmlist').html(dropdowncontentRM);
+            $('#rlist').html(dropdowncontentR);
             //populateMap(x,roles);
             //console.log(x);
             
     }});
+
+}
+
+function centerMap(x,y) {
+    center=L.latLng(y,x);
+    main_map.setView(center,9);
+    closeLateral();
 
 }
