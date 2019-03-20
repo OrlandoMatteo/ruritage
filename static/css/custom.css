@@ -15,6 +15,7 @@
 
 /* Dropdown Content (Hidden by Default) */
 .cdropdown-content {
+
   display: none;
   position: absolute;
   background-color: #f1f1f1;
@@ -25,6 +26,7 @@
 
 /* Links inside the dropdown */
 .cdropdown-content a {
+  font-size: 13px;
   padding: 2px 4px;
   text-decoration: none;
   display: block;
