@@ -311,7 +311,7 @@ function ReplicatorStyle2(feature,latlng){
         return L.marker(latlng, {icon: SIA1Icon, riseOnHover: true});
         case "Migration":
             var SIA3Icon = L.icon({
-                iconUrl: 'static/img/r_migrationn.png',
+                iconUrl: 'static/img/r_migration.png',
                 iconSize:     [35,35], // size of the icon
             });
         return L.marker(latlng, {icon: SIA3Icon, riseOnHover: true});
