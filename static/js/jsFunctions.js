@@ -22,7 +22,7 @@ function add_video() {
     var popup_a931dc205b904e72baa4c8dc9eb3dbe9 = L.popup({maxWidth: '300'
             
             });
-    popup_a931dc205b904e72baa4c8dc9eb3dbe9.setContent('<video width="300" src="https://magmageopark.no/wp-content/uploads/2018/05/Magma-Webside-test2.mp4" type="video/mp4" controls></video>')    
+    popup_a931dc205b904e72baa4c8dc9eb3dbe9.setContent('<video width="300" src="https://magmageopark.no/wp-content/uploads/2018/05/Magma-Webside-test2.mp4" type="video/mp4" controls></video>') ;   
     //popup_a931dc205b904e72baa4c8dc9eb3dbe9.setContent('<p>Hello world!<br />This is a nice popup.</p>');
     marker_video.bindPopup(popup_a931dc205b904e72baa4c8dc9eb3dbe9);
 }
@@ -51,7 +51,7 @@ function add3d() {
     var popup_3d = L.popup({maxWidth: '300'
             
             });
-    popup_3d.setContent('<iframe src="http://localhost:8080/test3D"></iframe>')    
+    popup_3d.setContent('<iframe src="http://localhost:8080/test3D"></iframe>');   
     //popup_a931dc205b904e72baa4c8dc9eb3dbe9.setContent('<p>Hello world!<br />This is a nice popup.</p>');
     marker_3d.bindPopup(popup_3d);
 }
@@ -72,14 +72,14 @@ function createPopup(feature_properties) {
 
     var table='<h4 id="title">'+feature_properties.Name+'</h4> <br><font size="2"><div id="extra"><font size="2"><br><b>Description</b><p>'+feature_properties.Description+'</p>';
     if (feature_properties.Role=='RM') {
-        table+='<br><b>Main Economic Sector</b><br>'+feature_properties.MainEconomicSector+'<br>'
+        table+='<br><b>Main Economic Sector</b><br>'+feature_properties.MainEconomicSector+'<br>';
         table+='<br><b>Challenges</b><br><table class="table" style="width:100%" >';
 
         toavoid=['Description','Role','Name','SIA','MainEconomicSector'];
-        for (item in feature_properties) {
+        for (var item in feature_properties) {
             if (toavoid.indexOf(item)==-1) {
                 if (feature_properties[item]) {
-                    row='<tr><th>'+ item.toString()+'</th>'
+                    row='<tr><th>'+ item.toString()+'</th>';
                     if (feature_properties[item].startsWith("YES")) {
                         row+='<td style="background-color:yellow">'+feature_properties[item]+'</td></tr>';
                     }
@@ -92,7 +92,7 @@ function createPopup(feature_properties) {
         }
         table+='</table></font></div>';
     }
-    return table
+    return table;
 
 }
 
@@ -107,7 +107,7 @@ function onEachEntity(feature, layer) {
 
         });
 */
-    id=feature.properties.ID
+    id=feature.properties.ID;
    
     main_map.eachLayer(function (livello){
         if (livello.feature) {
@@ -139,7 +139,7 @@ function onEachEntity(feature, layer) {
         
 }
 function RMStyle(feature,latlng){
-    switch (feature.properties["SIA"]){
+    switch (feature.properties.SIA){
         case "SustainableFoodProduction":
             var SIA2Icon = L.AwesomeMarkers.icon({
                     icon: 'trophy',
@@ -197,7 +197,7 @@ function RMStyle(feature,latlng){
     }
 }
 function RMStyle2(feature,latlng){
-    switch (feature.properties["SIA"]){
+    switch (feature.properties.SIA){
         case "SustainableFoodProduction":
             var SIA2Icon=L.icon({
                 iconUrl: 'static/img/rm_food.png',
@@ -237,7 +237,7 @@ function RMStyle2(feature,latlng){
     }
 }
 function ReplicatorStyle(feature,latlng){
-    switch (feature.properties["SIA"]){
+    switch (feature.properties.SIA){
         case "SustainableFoodProduction":
             var SIA2Icon = L.AwesomeMarkers.icon({
                     icon: 'user',
@@ -296,7 +296,7 @@ function ReplicatorStyle(feature,latlng){
 }
 
 function ReplicatorStyle2(feature,latlng){
-    switch (feature.properties["SIA"]){
+    switch (feature.properties.SIA){
         case "SustainableFoodProduction":
             var SIA2Icon=L.icon({
                 iconUrl: 'static/img/r_food.png',
@@ -340,18 +340,19 @@ function ReplicatorStyle2(feature,latlng){
 
 
 function updateMap() {
-    var roles=[]
-    var sias=[]
-    
+    var roles=[];
+    var sias=[];
+        
     checkboxesRole=document.getElementById('roles');
     for (i=0;i<checkboxesRole.children.length;i++){
         if (checkboxesRole.children[i].type=="checkbox")
         {
             if (checkboxesRole.children[i].checked)
             {
-                roles.push(checkboxesRole.children[i].value)}
+                roles.push(checkboxesRole.children[i].value);
             }
         }
+    }
 
     checkboxesSIA=document.getElementById('sias');
     for (i=0;i<checkboxesSIA.children.length;i++){
@@ -359,9 +360,10 @@ function updateMap() {
         {
             if (checkboxesSIA.children[i].checked)
             {
-                sias.push(checkboxesSIA.children[i].value)}
+                sias.push(checkboxesSIA.children[i].value);
             }
         }
+    }
     var queryResult=$.ajax({
         method: 'GET',      
         url: "/querySIA",
@@ -399,7 +401,6 @@ function initialMap(rm_r) {
             populateMap(x,rm_r);
             
     }});
-    console.log('DONE')
 }
 function populateMap(result,roles) {
 
@@ -422,10 +423,10 @@ function populateMap(result,roles) {
     geo_json_RoleModels.setStyle(function(feature) {return feature.properties.style;}); 
 
     replicatorJson={"type": "FeatureCollection","features": []};
-    for (var i = 0; i < result.features.length; i++) {
-        if (result.features[i].properties.Role=='R')
+    for (var j = 0; j < result.features.length; j++) {
+        if (result.features[j].properties.Role=='R')
         {
-            replicatorJson.features.push(result.features[i]);
+            replicatorJson.features.push(result.features[j]);
         }
     }
     var geo_json_Replicators = L.geoJson(replicatorJson,{pointToLayer: ReplicatorStyle2, onEachFeature:onEachEntity}).addTo(main_map);
@@ -444,7 +445,7 @@ function selectall() {
 }
 
 function onEachArea(feature,layer) {
-    id=feature.properties.ID
+    id=feature.properties.ID;
     var content='';
     main_map.eachLayer(function (livello){
         if (livello.feature) {
@@ -470,7 +471,7 @@ function drawArea(data) {
         var RMAreas=L.geoJson(x,{ onEachFeature:onEachArea}).addTo(main_map);
         //RMAreas.setStyle(function(feature) {return {color:'#472502'}});
         RMAreas.setStyle(function(feature) {
-            switch (feature.geometry.properties["SIA"])
+            switch (feature.geometry.properties.SIA)
             {
 
                 case "Sustainable food production":
@@ -486,7 +487,7 @@ function drawArea(data) {
                 return {color:'#f0b629'};
 
                 case "Resilience":
-                return {color:'#f07929'};
+                return {color:'#c19c77'};
 
                 case "Landscape":
                 return {color:'#0d5c1e'};               
@@ -505,7 +506,7 @@ function addRMArea() {
             x=response;
             drawArea(x);
             
-    }})
+    }});
 }
 
 function onEachPath(feature,layer) {
@@ -516,7 +517,7 @@ function drawPaths(data) {
     for (var i = 0; i < data.data.length; i++) {
         x=data.data[i];
         var RMPaths=L.geoJson(x,{ onEachFeature:onEachPath,pane:'Paths'}).addTo(main_map);
-        RMPaths.setStyle(function(feature) {return {color:'#472502',dashArray:'5 5'}});
+        RMPaths.setStyle(function(feature) {return {color:'#472502',dashArray:'5 5'};});
         Paths.addLayer(RMPaths);
 
     }
@@ -532,7 +533,7 @@ function addRMPath() {
             x=response;
             drawPaths(x);
             
-    }})
+    }});
 }
 
 
@@ -547,12 +548,12 @@ function onEachBuilding(feature, layer) {
         }
     }
     else{
-        layer.bindTooltip(feature.properties.name)
+        layer.bindTooltip(feature.properties.name);
     }
     layer.bindPopup(feature.properties.description,{autoPan:false, closePopupOnClick:false});
     layer.on('click', function(e){
         //main_map.setView(e.latlng);
-        $('#lateral').html(layer.getPopup().getContent())
+        $('#lateral').html(layer.getPopup().getContent());
 
     });
 
@@ -640,8 +641,8 @@ function addBuildings() {
 function townSidebar(properties) {
     content='<font size="2"><u onClick="hideDescription()" style="cursor: pointer;">Minimize/Expand</u>&ensp;<u style="cursor: pointer;" onClick="closeLateral()">Close</u></font>';
     content=content+'<h4 id="title">'+properties.TOWN_NAME+'</h4> <br><font size="2"><div id="extra"><font size="2"><br><b>Description</b><p>'+properties.DESCRIPTION+'</p>';
-    content=content+'<p><b>Additional Information</b><br>Temporal range: '+properties['TEMPORAL RANGE']+'<br>Current: '+properties['CURRENT']+'<br>Historical: '+properties['HISTORICAL']+'<br></p>' ;
-    return content
+    content=content+'<p><b>Additional Information</b><br>Temporal range: '+properties['TEMPORAL RANGE']+'<br>Current: '+properties.CURRENT+'<br>Historical: '+properties.HISTORICAL+'<br></p>' ;
+    return content;
 }
 
 
@@ -664,19 +665,19 @@ function TownStyle(feature,latlng) {
 
     //Uncomment to have the same markers
     //var marker=L.marker(latlng, {riseOnHover: true});
-    return marker
+    return marker;
 }
 
 
 function onEachTown(feature, layer) {  
-    layer.bindTooltip(feature.properties.TOWN_NAME) 
+    layer.bindTooltip(feature.properties.TOWN_NAME) ;
     var content='<h4 id="title">'+feature.properties.TOWN_NAME+'</h4>';
-    var lateral_content='<font size="2"><u onClick="hideDescription()" style="cursor: pointer;">Minimize/Expand</u>&ensp;<u style="cursor: pointer;" onClick="closeLateral()">Close</u></font>'+content+'<br><font size="2"><div id="extra"><font size="2"><b>Description</b><p>'+feature.properties.DESCRIPTION+'</p>'
+    var lateral_content='<font size="2"><u onClick="hideDescription()" style="cursor: pointer;">Minimize/Expand</u>&ensp;<u style="cursor: pointer;" onClick="closeLateral()">Close</u></font>'+content+'<br><font size="2"><div id="extra"><font size="2"><b>Description</b><p>'+feature.properties.DESCRIPTION+'</p>';
     lateral_content=townSidebar(feature.properties);
     //layer.bindPopup(content,{autoPan:false,autoclose:false});
     layer.on('click', function(e){
         main_map.setView(e.latlng);
-        $('#lateral').html(lateral_content)
+        $('#lateral').html(lateral_content);
         //console.log(layer);
         if(clickedTown) {
           clickedTown.setIcon(L.icon({
@@ -735,22 +736,22 @@ function SiteStyle(feature,latlng) {
                 //return L.marker(latlng, {icon: TownIcon, riseOnHover: true});
     var marker=L.marker(latlng, {icon: SiteIcon, riseOnHover: true});*/
     var marker=L.marker(latlng, {riseOnHover: true});
-    return marker
+    return marker;
 }
 
 function onEachSite(feature, layer) {
-    layer.bindTooltip(feature.properties.NAME) 
+    layer.bindTooltip(feature.properties.NAME) ;
     var content='<h4 id="title">'+feature.properties.NAME+'</h4>';
     if (feature.properties.DESCRIPTION!='Not available') {
-        var lateral_content='<font size="2"><u onClick="hideDescription()" style="cursor: pointer;">Minimize/Expand</u>&ensp;<u style="cursor: pointer;" onClick="closeLateral()">Close</u></font>'+content+'<br><font size="2"><div id="extra"><font size="2"><b>Description</b><p>'+feature.properties.DESCRIPTION+'</p></div>'
+        var lateral_content='<font size="2"><u onClick="hideDescription()" style="cursor: pointer;">Minimize/Expand</u>&ensp;<u style="cursor: pointer;" onClick="closeLateral()">Close</u></font>'+content+'<br><font size="2"><div id="extra"><font size="2"><b>Description</b><p>'+feature.properties.DESCRIPTION+'</p></div>';
     }
     else{
-        var lateral_content='<font size="2"><u onClick="hideDescription()" style="cursor: pointer;">Minimize/Expand</u>&ensp;<u style="cursor: pointer;" onClick="closeLateral()">Close</u></font>'+content+'<br><font size="2"><div id="extra"><font size="2"></div>'
+        var lateral_content='<font size="2"><u onClick="hideDescription()" style="cursor: pointer;">Minimize/Expand</u>&ensp;<u style="cursor: pointer;" onClick="closeLateral()">Close</u></font>'+content+'<br><font size="2"><div id="extra"><font size="2"></div>';
     }
     layer.bindPopup(content,{autoPan:false,autoclose:false});
     layer.on('click', function(e){
         main_map.setView(e.latlng);
-        $('#lateral').html(lateral_content)
+        $('#lateral').html(lateral_content);
         if(clickedSite) {
           clickedSite.setIcon(L.icon({
                 iconUrl: 'static/css/images/marker-icon.png',
@@ -837,7 +838,7 @@ function hideOnZoom(){
             $('#townButton').toggle();
             $('#siteButton').toggle();
             $('#imageButton').toggle();
-            $('#imageContainer').toggle()
+            $('#imageContainer').toggle();
             //$('#imageFlow')[0].style.display='none'  
             createSlideShow();
             
@@ -845,10 +846,10 @@ function hideOnZoom(){
         }
     }
     else{
-        $('#townButton')[0].style.display='none'
-        $('#siteButton')[0].style.display='none'
-        $('#imageButton')[0].style.display='none'
-        $('#imageContainer')[0].style.display='none'
+        $('#townButton')[0].style.display='none';
+        $('#siteButton')[0].style.display='none';
+        $('#imageButton')[0].style.display='none';
+        $('#imageContainer')[0].style.display='none';
         //$('#slideShow')[0].style.display='none'     
         main_map.eachLayer(function (layer){
             if (layer.feature && !layer.feature.properties.Role) {
@@ -893,14 +894,14 @@ function PalestinaStyle(feature,latlng){
                             extraClasses: 'fa-rotate-0'
                             });
     var marker= L.marker(latlng, {icon: BuildingIcon, riseOnHover: true});
-    return marker
+    return marker;
 }
 
 function onEachPalestina(feature, layer){
     layer.bindTooltip(feature.properties.name);
     popup=L.popup({maxWidth: '300'});
-    popup.setContent('<img class="resize" src=static/img/'+feature.properties.Photo+'>')
-    layer.bindPopup(popup)
+    popup.setContent('<img class="resize" src=static/img/'+feature.properties.Photo+'>');
+    layer.bindPopup(popup);
 
 }
 
@@ -913,7 +914,7 @@ function addPalestina(){
 
         success: function(response) {
             x=response;
-            var palestinaJson=L.geoJson(x,{pointToLayer:PalestinaStyle, onEachFeature:onEachPalestina}).addTo(main_map)
+            var palestinaJson=L.geoJson(x,{pointToLayer:PalestinaStyle, onEachFeature:onEachPalestina}).addTo(main_map);
             
     }});
     
@@ -1018,7 +1019,7 @@ function updateFlow(argument) {
     slideShow='';
     console.log(photos[0].coordinates);
     for (var i = 0; i < photos.length; i++) {
-        var img ='<div onClick="centerMap('+photos[0].coordinates[0]+','+photos[0].coordinates[1]+','+15+')" class="swiper-slide" style="width:300px"><img src="data:image/jpg;base64,'+photos[i].binary+'" height="150px margin-left: auto; margin-right: auto; display: block;"  title="'+photos[i].Name+'" /></div>'
+        var img ='<div onClick="centerMap('+photos[0].coordinates[0]+','+photos[0].coordinates[1]+','+15+')" class="swiper-slide" style="width:300px"><img src="data:image/jpg;base64,'+photos[i].binary+'" height="150px margin-left: auto; margin-right: auto; display: block;"  title="'+photos[i].Name+'" /></div>';
         //img.attr('src', 'data:image/png;base64,' + photos[i]);,
         slideShow=slideShow+img;
        // console.log(photos[i]);
@@ -1030,29 +1031,31 @@ function updateFlow(argument) {
 }
 
 function showImages() {
-$('#imageContainer').toggle()
+$('#imageContainer').toggle();
 }
 
 
 
 
 function createDropwdown() {
-    var roles=[]
-    var sias=[]
+    var roles=[];
+    var sias=[];
     
     checkboxesRole=document.getElementById('roles');
     for (i=0;i<checkboxesRole.children.length;i++){
         if (checkboxesRole.children[i].type=="checkbox")
         {
-            roles.push(checkboxesRole.children[i].value)}
+            roles.push(checkboxesRole.children[i].value);
 
         }
-
+    }
     checkboxesSIA=document.getElementById('sias');
     for (i=0;i<checkboxesSIA.children.length;i++){
         if (checkboxesSIA.children[i].type=="checkbox")
-        {                sias.push(checkboxesSIA.children[i].value)}
+        {                sias.push(checkboxesSIA.children[i].value);
+
         }
+    }
     var queryResult=$.ajax({
         method: 'GET',      
         url: "/querySIA",
@@ -1061,17 +1064,17 @@ function createDropwdown() {
 
         success: function(response) {
             result=response;
-            var dropdowncontentRM=''
-            var dropdowncontentR=''
+            var dropdowncontentRM='';
+            var dropdowncontentR='';
             for (var i = 0; i < result.features.length; i++) {
                 if (result.features[i].properties.Role=="RM")                    
                 {   
-                    dropdowncontentRM=dropdowncontentRM+'<a href="#" style="color: '+SIAColor(result.features[i])+'" onClick="centerMap('+result.features[i].geometry.coordinates[0]+' ,'+result.features[i].geometry.coordinates[1]+','+9+')">'+result.features[i].properties.Name+'</a>'
+                    dropdowncontentRM=dropdowncontentRM+'<a href="#" style="color: '+SIAColor(result.features[i])+'" onClick="centerMap('+result.features[i].geometry.coordinates[0]+' ,'+result.features[i].geometry.coordinates[1]+','+9+')">'+result.features[i].properties.Name+'</a>';
                     //dropdowncontentRM=dropdowncontentRM+'<a href="#" onClick="centerMap('+result.features[i].geometry.coordinates[0]+' ,'+result.features[i].geometry.coordinates[1]+')">'+result.features[i].properties.Name+' (SIA: '+result.features[i].properties.SIA+')</a>'
                 }
                 if (result.features[i].properties.Role=="R")
                 {   
-                    dropdowncontentR=dropdowncontentR+'<a href="#" style="color: '+SIAColor(result.features[i])+'" onClick="centerMap('+result.features[i].geometry.coordinates[0]+' ,'+result.features[i].geometry.coordinates[1]+','+9+')">'+result.features[i].properties.Name+'</a>'
+                    dropdowncontentR=dropdowncontentR+'<a href="#" style="color: '+SIAColor(result.features[i])+'" onClick="centerMap('+result.features[i].geometry.coordinates[0]+' ,'+result.features[i].geometry.coordinates[1]+','+9+')">'+result.features[i].properties.Name+'</a>';
                 }
             }
             $('#rmlist').html(dropdowncontentRM);

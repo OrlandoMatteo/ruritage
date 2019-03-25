@@ -15,6 +15,7 @@
 .cdropdown {
   position: relative;
   display: inline-block;
+  padding-bottom: 20px;
 }
 
 /* Dropdown Content (Hidden by Default) */
@@ -52,3 +53,5 @@
   .cdropdown{
     padding-top: 50px;
   }
+
+}

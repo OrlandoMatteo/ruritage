@@ -1,0 +1,953 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"site",
+				"siteLayer"
+			],
+			[
+				"re",
+				"result"
+			],
+			[
+				"padd",
+				"padding-top\tproperty"
+			],
+			[
+				"la",
+				"latlng"
+			],
+			[
+				"se",
+				"setView"
+			],
+			[
+				"id",
+				"ID"
+			],
+			[
+				"fe",
+				"features"
+			],
+			[
+				"co",
+				"console"
+			],
+			[
+				"on",
+				"onClick"
+			],
+			[
+				"add",
+				"addTo"
+			],
+			[
+				"p",
+				"position"
+			],
+			[
+				"con",
+				"console"
+			],
+			[
+				"tow",
+				"townSidebar"
+			],
+			[
+				"TO",
+				"TOWN_NAME"
+			],
+			[
+				"to",
+				"town"
+			],
+			[
+				"rm",
+				"rmTowns"
+			],
+			[
+				"featu",
+				"features"
+			],
+			[
+				"fil",
+				"file"
+			],
+			[
+				"top",
+				"topology"
+			],
+			[
+				"res",
+				"response"
+			],
+			[
+				"ico",
+				"iconUrl"
+			],
+			[
+				"feat",
+				"features"
+			],
+			[
+				"wi",
+				"width"
+			],
+			[
+				"ima",
+				"imageContainer"
+			],
+			[
+				"iamge",
+				"imageContainer"
+			],
+			[
+				"updat",
+				"updateFlow"
+			],
+			[
+				"content",
+				"contentFlow"
+			],
+			[
+				"Co",
+				"COLLECTIONS"
+			],
+			[
+				"slide",
+				"slideShow"
+			],
+			[
+				"sl",
+				"slideShow"
+			],
+			[
+				"for",
+				"for\tfor (…) {…}"
+			],
+			[
+				"imae",
+				"image_binary"
+			],
+			[
+				"creat",
+				"createSlideShow"
+			],
+			[
+				"late",
+				"lateral_content"
+			],
+			[
+				"ge",
+				"getPopup"
+			],
+			[
+				"feau",
+				"feature"
+			],
+			[
+				"get",
+				"getContent"
+			],
+			[
+				"max",
+				"max-width\tproperty"
+			],
+			[
+				"col",
+				"col-lg-12"
+			],
+			[
+				"mar",
+				"margin-top\tproperty"
+			],
+			[
+				"margin",
+				"margin-top\tproperty"
+			],
+			[
+				"town",
+				"TOWN_NAME"
+			],
+			[
+				"File",
+				"file2"
+			],
+			[
+				"geo",
+				"geometry"
+			],
+			[
+				"remo",
+				"removeLayer"
+			],
+			[
+				"Tow",
+				"TOWN_NAME"
+			],
+			[
+				"margi",
+				"margin-left\tproperty"
+			],
+			[
+				"di",
+				"div\tTag"
+			],
+			[
+				"bo",
+				"border-radius\tproperty"
+			],
+			[
+				"rou",
+				"rounddiv2"
+			],
+			[
+				"pro",
+				"properties"
+			],
+			[
+				"bin",
+				"bindTooltip"
+			],
+			[
+				"rmTown",
+				"rmTowns"
+			],
+			[
+				"rmTo",
+				"rmTowns"
+			],
+			[
+				"de",
+				"decide"
+			],
+			[
+				"def",
+				"def\tFunction"
+			],
+			[
+				"fea",
+				"feature"
+			],
+			[
+				"no",
+				"no_cursor_timeout"
+			],
+			[
+				"bui",
+				"building"
+			],
+			[
+				"in",
+				"insert_one"
+			],
+			[
+				"pre",
+				"properties"
+			],
+			[
+				"gen",
+				"generations"
+			],
+			[
+				"win",
+				"wins"
+			],
+			[
+				"Rand",
+				"RandomPlayer"
+			],
+			[
+				"op",
+				"openstreetmap_layer"
+			],
+			[
+				"leaf",
+				"leaflet-search"
+			],
+			[
+				"are",
+				"areaLayer"
+			],
+			[
+				"faure",
+				"features"
+			],
+			[
+				"jso",
+				"json_data"
+			],
+			[
+				"zo",
+				"zoomflagB"
+			],
+			[
+				"addRM",
+				"addRMPath"
+			],
+			[
+				"te",
+				"text2"
+			],
+			[
+				"che",
+				"checkWin"
+			],
+			[
+				"i",
+				"individual"
+			],
+			[
+				"a",
+				"arange"
+			],
+			[
+				"grid",
+				"grid_out"
+			],
+			[
+				"feature",
+				"feature"
+			],
+			[
+				"RM",
+				"RM2Area"
+			],
+			[
+				"zip",
+				"zippedPopulation"
+			],
+			[
+				"sor",
+				"sortedPopulation"
+			],
+			[
+				"zi",
+				"zippedPopulation"
+			],
+			[
+				"wins",
+				"winsPercentage"
+			],
+			[
+				"ga",
+				"gameforeach"
+			],
+			[
+				"trace",
+				"trace2"
+			],
+			[
+				"Ro",
+				"Roles"
+			],
+			[
+				"R",
+				"Roles"
+			],
+			[
+				"Sia",
+				"SIAs"
+			],
+			[
+				"Si",
+				"SIAs"
+			],
+			[
+				"SIa",
+				"SIAsList"
+			],
+			[
+				"gri",
+				"grid_out"
+			],
+			[
+				"json",
+				"json_data"
+			],
+			[
+				"file",
+				"filename"
+			],
+			[
+				"s",
+				"sw_cpu"
+			],
+			[
+				"sw",
+				"sw_mem"
+			],
+			[
+				"e",
+				"echo"
+			],
+			[
+				"bind",
+				"bindPopup"
+			],
+			[
+				"opa",
+				"opacitySlider"
+			],
+			[
+				"pi",
+				"pilIcon"
+			],
+			[
+				"geoJs",
+				"geoJsonBuildings"
+			],
+			[
+				"ma",
+				"main_map"
+			],
+			[
+				"Sele",
+				"SELECT"
+			],
+			[
+				"mai",
+				"main_map"
+			],
+			[
+				"padding",
+				"padding-top\tproperty"
+			],
+			[
+				"Econo",
+				"MainEconomicSector"
+			],
+			[
+				"wms",
+				"wmsLayer"
+			],
+			[
+				"Role",
+				"RoleModel"
+			],
+			[
+				"back",
+				"background-color\tproperty"
+			],
+			[
+				"im",
+				"imageBounds"
+			],
+			[
+				"Es",
+				"Esri_WorldImagery"
+			],
+			[
+				"wid",
+				"maxWidth"
+			],
+			[
+				"fr",
+				"for\tfor (…) {…}"
+			],
+			[
+				"featr",
+				"feature_properties"
+			],
+			[
+				"B",
+				"BPJson"
+			],
+			[
+				"resu",
+				"result_col"
+			],
+			[
+				"idB",
+				"idBestPractice"
+			],
+			[
+				"Js",
+				"jsonBP"
+			],
+			[
+				"quer",
+				"query"
+			],
+			[
+				"CC",
+				"CCsList"
+			],
+			[
+				"st",
+				"style\tTag"
+			],
+			[
+				"ba",
+				"background-color\tproperty"
+			],
+			[
+				"sia",
+				"sia_btn"
+			],
+			[
+				"cc",
+				"ccCheckbox"
+			],
+			[
+				"marg",
+				"margin-top\tproperty"
+			],
+			[
+				"query",
+				"query_template"
+			],
+			[
+				"paddin",
+				"padding-top\tproperty"
+			],
+			[
+				"ch",
+				"checkbox"
+			],
+			[
+				"SI",
+				"SIAsList"
+			],
+			[
+				"colum",
+				"column2"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "server.py",
+			"settings":
+			{
+				"buffer_size": 13488,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"anaconda",
+				"Anaconda: Goto object definition"
+			],
+			[
+				"insta",
+				"Package Control: Install Package"
+			],
+			[
+				"packa",
+				"Package Control: Remove Package"
+			],
+			[
+				"lint",
+				"JSLint"
+			],
+			[
+				"linter",
+				"SublimeLinter: Show All Errors"
+			],
+			[
+				"unins",
+				"SublimeLinter: Reload SublimeLinter and its Plugins"
+			],
+			[
+				"lin",
+				"SublimeLinter: Show All Errors"
+			],
+			[
+				"pylin",
+				"Preferences: SublimeLinter Key Bindings"
+			],
+			[
+				"linte",
+				"SublimeLinter: Show All Errors"
+			],
+			[
+				"latex",
+				"LaTeXTools: View PDF"
+			],
+			[
+				"late",
+				"LaTeXTools: Create mousemap in user folder"
+			],
+			[
+				"Packa",
+				"Package Control: Install Package"
+			],
+			[
+				"LAtex",
+				"LaTeXTools: View TeX package documentation"
+			],
+			[
+				"pack",
+				"Package Control: Install Package"
+			],
+			[
+				"Anaconda",
+				"Anaconda: Show error list"
+			],
+			[
+				"",
+				"Anaconda: Display object docs"
+			],
+			[
+				" Anaconda: Sho",
+				"Anaconda: Show error list"
+			],
+			[
+				"Ari",
+				"Arithmetic"
+			],
+			[
+				"pa",
+				"Package Control: Install Package"
+			],
+			[
+				"ana",
+				"Anaconda: Run Current Test"
+			],
+			[
+				"pac",
+				"Package Control: Install Package"
+			],
+			[
+				"sublim",
+				"SublimeLinter: Show All Errors"
+			]
+		],
+		"width": 0.0
+	},
+	"console":
+	{
+		"height": 136.0,
+		"history":
+		[
+			"pylint",
+			"clear",
+			"sudo pip install --upgrade cryptography",
+			"import urllib.request,os,hashlib; h = '6f4c264a24d933ce70df5dedcf1dcaee' + 'ebe013ee18cced0ef93d5f746d80ef60'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/home/matteo/Projects/ruritage/flask/static/js/jsFunctions.js",
+		"/home/matteo/Projects/ruritage/flask/server.py",
+		"/home/matteo/.config/sublime-text-3/Packages/User/Preferences.sublime-settings",
+		"/home/matteo/.config/sublime-text-3/Packages/Default/Preferences.sublime-settings",
+		"/home/matteo/Atlas/templates/test.html",
+		"/home/matteo/Projects/ruritage/testmongo/test.py",
+		"/home/matteo/Projects/ruritage/testmongo/drive-download-20190313T105714Z-001/untitled.py",
+		"/home/matteo/Projects/ruritage/flask/static/css/bootstrap.css",
+		"/home/matteo/Projects/ruritage/flask/static/css/leaflet.css",
+		"/home/matteo/Projects/ruritage/flask/static/css/swiper.css",
+		"/home/matteo/Projects/ruritage/testmongo/7Inventory.json",
+		"/home/matteo/Projects/ruritage/flask/templates/test.html",
+		"/home/matteo/Projects/ruritage/testmongo/patch.py",
+		"/home/matteo/Documents/mongodbCollections/exporter.sh",
+		"/home/matteo/Projects/ruritage/testmongo/4Site_RM2.json",
+		"/home/matteo/Projects/ruritage/testmongo/4Site_RM2.geojson",
+		"/media/matteo/ALESSANDRA/geojson/4Site_RM2.geojson",
+		"/home/matteo/Projects/ruritage/flask/static/css/contentFlow.css",
+		"/home/matteo/Projects/ruritage/flask/static/js/contentFlow.js",
+		"/home/matteo/Projects/ruritage/flask/static/css/mycontentflow.css",
+		"/home/matteo/Pictures/runtime.sh",
+		"/home/matteo/Projects/ruritage/testmongo/2Town_RM2.json",
+		"/home/matteo/Projects/ruritage/testmongo/2Town_RM2_Romania.json",
+		"/home/matteo/Projects/ruritage/testmongo/RM2Entities.json",
+		"/home/matteo/Projects/ruritage/testmongo/LocalArea.json",
+		"/home/matteo/Projects/ruritage/flask/static/js/initial_map.js",
+		"/home/matteo/Projects/ruritage/flask/testindex.html",
+		"/home/matteo/Projects/ruritage/server.py",
+		"/media/matteo/OS/Documents and Settings/Matteo/Documenti/Tesi/Tesi/test latex (copy)/main.tex",
+		"/media/matteo/OS/Documents and Settings/Matteo/Documenti/Tesi/Tesi/test latex/toptesi-example.tex",
+		"/home/matteo/.config/sublime-text-3/Packages/User/Default (Linux).sublime-mousemap",
+		"/media/matteo/OS/Documents and Settings/Matteo/Documenti/Tesi/Tesi/Tesi latex/main.tex",
+		"/home/matteo/Documents/Python/tris/test.py",
+		"/home/matteo/Documents/Python/game/test.py",
+		"/home/matteo/Documents/Python/tris/server.py",
+		"/home/matteo/.config/sublime-text-3/Packages/Anaconda/Anaconda.sublime-settings",
+		"/home/matteo/Dropbox/3-SMA/OSW/osw.py",
+		"/home/matteo/Projects/ruritage/flask/templates/testindex.html",
+		"/home/matteo/Dropbox/3-SMA/OSW/Untitled1.ipynb",
+		"/home/matteo/Documents/Python/tris/templates/index.html",
+		"/home/matteo/Projects/ruritage/flask/mySQLaddons.py",
+		"/home/matteo/Documents/testmemcpu.sh",
+		"/home/matteo/Projects/ruritage/flask/static/db/CaminoAreas.json",
+		"/media/matteo/ALESSANDRA/kml/RM2_1LocalArea.kml",
+		"/home/matteo/Projects/ruritage/flask/static/db/PalestinaBuilding.json",
+		"/home/matteo/Projects/ruritage/flask/static/db/camino_path.json",
+		"/home/matteo/Documents/runtime.sh",
+		"/home/matteo/Dropbox/3-SMA/v6/main.py",
+		"/home/matteo/Projects/ruritage/flask/static/db/RM2Entities.json",
+		"/home/matteo/Projects/ruritage/flask/static/db/CaminoEntities.json",
+		"/home/matteo/Projects/ruritage/flask/static/js/bestpractices.js",
+		"/home/matteo/Projects/ruritage/flask/templates/bestpractices.html",
+		"/home/matteo/Projects/ruritage/flask/static/db/Building Palestina.kml",
+		"/home/matteo/Ruritage/RM_sheets/RM2/Copia di HCC_QP2_Map.kml",
+		"/home/matteo/Projects/ruritage/flask/static/db/RM2.json",
+		"/home/matteo/Projects/ruritage/flask/static/db/RM2Path.json",
+		"/home/matteo/Ruritage/RM_sheets/RM2/HCC_QP2_Map.kml",
+		"/home/matteo/Projects/ruritage/flask/static/js/leaflet.awesome-markers.js",
+		"/home/matteo/Downloads/RURITAGE_CAMINO DE SANTIAGO (1).kml",
+		"/home/matteo/Projects/ruritage/flask/static/db/Puntos_Palencia.json",
+		"/home/matteo/Projects/ruritage/flask/static/db/Puntos_Palencia.kml",
+		"/home/matteo/Projects/ruritage/testindex.html",
+		"/home/matteo/Projects/ruritageDB/testdb.py",
+		"/home/matteo/3-SMA/Meter/publisher.py",
+		"/home/matteo/Projects/ruritage/main.py",
+		"/home/matteo/Projects/ruritage/index.html",
+		"/home/matteo/Projects/ruritage/flask/dbCredentials.json",
+		"/home/matteo/Projects/ruritage/static/js/initial_map.js",
+		"/home/matteo/Projects/DBRuritage/testdb.py",
+		"/home/matteo/Projects/ruritage/3Dtest.html",
+		"/home/matteo/Projects/ruritage/flask.py",
+		"/home/matteo/Projects/3d test/index.html",
+		"/home/matteo/Projects/ruritage_deploy/ruritage/ruritage/main.py",
+		"/home/matteo/Projects/ruritage/map_creator.py",
+		"/home/matteo/Projects/ruritage/static/maps/roleModels.js",
+		"/home/matteo/Projects/ruritage/map.html",
+		"/home/matteo/Projects/ruritage/static/css/bootstrap.css",
+		"/home/matteo/Projects/ruritage/maps/roleModels.html",
+		"/home/matteo/Projects/ruritage/static/db/roleModels.json",
+		"/home/matteo/Projects/ruritage/inital_map.js",
+		"/home/matteo/Ruritage/ArchesREST/main.py",
+		"/home/matteo/Documents/Python/FC_bot/team.py",
+		"/home/matteo/Documents/Python/FC_bot/owner.py",
+		"/home/matteo/Documents/Python/FC_bot/database.py",
+		"/home/matteo/Documents/Python/FC_bot/player.py",
+		"/home/matteo/Ruritage/ruritage/ruritage/templates/index.htm",
+		"/home/matteo/3-SMA/Fault Location/FL_algorithm.py",
+		"/home/matteo/Documents/Python/FC_bot/campionato.py",
+		"/home/matteo/Documents/Python/FC_bot/seriea.py",
+		"/home/matteo/Ruritage/ArchesREST/image_update.html",
+		"/home/matteo/Ruritage/ArchesREST/submit.html",
+		"/home/matteo/Ruritage/ENV/lib/python2.7/site-packages/arches/app/media/css/unify.css",
+		"/home/matteo/Ruritage/ruritage/ruritage/media/packages/font-awesome/css/font-awesome.css",
+		"/home/matteo/Documents/Python/random/mcNN.py",
+		"/home/matteo/Projects/my_project/ArchesREST/main.py",
+		"/home/matteo/Ruritage/ENV/lib/python2.7/site-packages/arches/app/utils/data_management/resources/formats/csvfile.py",
+		"/home/matteo/Ruritage/scripts/mapping_to_csv.py",
+		"/home/matteo/Ruritage/mapping_file/v3/mappingtocsv.py",
+		"/home/matteo/Ruritage/ENV/lib/python2.7/site-packages/arches/app/templates/views/components/widgets/map.htm",
+		"/home/matteo/Ruritage/ENV/lib/python2.7/site-packages/arches/app/templates/views/report-templates/default.htm",
+		"/home/matteo/Documents/Python/OrterraBot/bullshit.py",
+		"/home/matteo/Documents/untitled.py",
+		"/home/matteo/Documents/Python/Ortibot/my_env/ortibot/bot.py",
+		"/home/matteo/Documents/Python/Cartpole/cartpole.py",
+		"/home/matteo/Documents/Python/OrterraBot/bullshit.tpy",
+		"/home/matteo/Documents/Python/OrterraBot/untitled.py",
+		"/home/matteo/Documents/Python/gui/gui_import_shapefile.py",
+		"/home/matteo/Documents/Python/OrterraBot/freddure.py",
+		"/home/matteo/Documents/Python/OrterraBot/test_1.py",
+		"/home/matteo/Documents/Python/OrterraBot/my_env/OrterraBot/test_1.py",
+		"/home/matteo/Ruritage/scripts/id_connector.py",
+		"/home/matteo/Ruritage/scripts/csv_reader.py",
+		"/home/matteo/Ruritage/scripts/legacy_id_exporter.py",
+		"/home/matteo/Ruritage/scripts/resourceid_exporter.py",
+		"/home/matteo/Ruritage/RM_sheets/RM1/Townfinder.py",
+		"/home/matteo/Ruritage/ENV/local/lib/python2.7/site-packages/arches/app/templates/views/components/widgets/file.htm",
+		"/home/matteo/Ruritage/ENV/local/lib/python2.7/site-packages/arches/app/templates/views/components/widgets/base.htm",
+		"/home/matteo/Ruritage/ENV/local/lib/python2.7/site-packages/arches/app/templates/views/components/widgets/map.htm",
+		"/home/matteo/Ruritage/ENV/local/lib/python2.7/site-packages/arches/app/templates/views/components/datatypes/geojson-feature-collection.htm",
+		"/home/matteo/Ruritage/ENV/local/lib/python2.7/site-packages/arches/app/templates/views/report-templates/default.htm",
+		"/home/matteo/Ruritage/ENV/local/lib/python2.7/site-packages/arches/app/templates/views/report-templates/map.htm",
+		"/home/matteo/Ruritage/ENV/local/lib/python2.7/site-packages/arches/app/templates/views/report-templates/image.htm",
+		"/home/matteo/Ruritage/ENV/local/lib/python2.7/site-packages/arches/app/views/map.py",
+		"/home/matteo/Ruritage/RM_sheets/RM3/legacy_id_exporter.py",
+		"/home/matteo/Ruritage/RM_sheets/RM3/buildingfinder.py",
+		"/home/matteo/Ruritage/scripts/buildingfinder.py",
+		"/home/matteo/Downloads/2016-05-31_Api_Examples/parameter1/python/parameter1.py",
+		"/home/matteo/Ruritage/RM sheets/RM1/Townlist.json"
+	],
+	"find":
+	{
+		"height": 38.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"rm",
+			"[40,24]",
+			"     ["
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "server.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 13488,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 23.0
+	},
+	"input":
+	{
+		"height": 35.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.SublimeLinter":
+	{
+		"height": 153.0
+	},
+	"output.SublimeLinter Messages":
+	{
+		"height": 102.0
+	},
+	"output.exec":
+	{
+		"height": 141.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "",
+	"project": "atlas.sublime-project",
+	"replace":
+	{
+		"height": 42.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 392.0,
+		"last_filter": "PLa",
+		"selected_items":
+		[
+			[
+				"PLa",
+				"Player"
+			]
+		],
+		"width": 592.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": false,
+	"side_bar_width": 150.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
