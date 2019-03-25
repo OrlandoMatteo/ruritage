@@ -182,25 +182,7 @@ def RMAreas():
 
 
 
-	#OLD FOR MONGO
-	# json_data=None
-	# for x in rmAreas.find({},no_cursor_timeout=True):
-	# 	json_data=x['areasList']
 
-	# print json_data
-	# output={}
-	# output['data']=[]
-	# for j in json_data:
-	# 	document=j['filename']
-	# 	print document
-	# 	for grid_out in fs.find({'filename':document},no_cursor_timeout=True):
-	# 		output['data'].append(json.loads(grid_out.read()))
-
-	#output={}
-	#output['data']=[]
-	#document='LocalArea.json'
-	#for grid_out in fs.find({'filename':document},no_cursor_timeout=True):
-	#		output['data'].append(json.loads(grid_out.read()))
 
 	output={}
 	output['data']=[]
