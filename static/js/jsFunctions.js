@@ -138,6 +138,7 @@ function onEachEntity(feature, layer) {
     });
         
 }
+/*
 function RMStyle(feature,latlng){
     switch (feature.properties.SIA){
         case "SustainableFoodProduction":
@@ -195,7 +196,7 @@ function RMStyle(feature,latlng){
                     });
         return L.marker(latlng, {icon: SIA6Icon, riseOnHover: true});               
     }
-}
+}*/
 function RMStyle2(feature,latlng){
     switch (feature.properties.SIA){
         case "SustainableFoodProduction":
@@ -236,6 +237,8 @@ function RMStyle2(feature,latlng){
         return L.marker(latlng, {icon: SIA6Icon, riseOnHover: true});               
     }
 }
+
+/*
 function ReplicatorStyle(feature,latlng){
     switch (feature.properties.SIA){
         case "SustainableFoodProduction":
@@ -293,7 +296,7 @@ function ReplicatorStyle(feature,latlng){
                     });
         return L.marker(latlng, {icon: SIA6Icon, riseOnHover: true});               
     }
-}
+}*/
 
 function ReplicatorStyle2(feature,latlng){
     switch (feature.properties.SIA){
