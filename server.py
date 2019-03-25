@@ -408,10 +408,15 @@ def images():
 
 	#Serve un ciclo che cerchi tutte le immagini per ogni sito edificio citta etc, ogni cosa che puo avere immagini
 
+	# for point in sites.find({'coordinates':{ '$geoWithin': { '$geometry': rectangle } } },no_cursor_timeout=True):
+	# 	for grid_out in fs.find({'filename':point['properties']['IMAGE']},no_cursor_timeout=True):
+	# 		image_binary= grid_out.read()
+	# 		output['images'].append(base64.b64encode(image_binary))
+
 	for point in sites.find({'coordinates':{ '$geoWithin': { '$geometry': rectangle } } },no_cursor_timeout=True):
 		for grid_out in fs.find({'filename':point['properties']['IMAGE']},no_cursor_timeout=True):
 			image_binary= grid_out.read()
-			output['images'].append(base64.b64encode(image_binary))
+			output['images'].append({'Name':point['properties']['IMAGE'].replace('.jpg',''),'binary':base64.b64encode(image_binary),'coordinates':point['coordinates']})
 
 
 	return json.dumps(output)

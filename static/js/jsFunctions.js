@@ -200,38 +200,38 @@ function RMStyle2(feature,latlng){
     switch (feature.properties["SIA"]){
         case "SustainableFoodProduction":
             var SIA2Icon=L.icon({
-                iconUrl: 'static/img/LocalFoodIcon.png',
-                iconSize:     [40,24], // size of the icon
+                iconUrl: 'static/img/rm_food.png',
+                iconSize:     [35,35], // size of the icon
             });
         return L.marker(latlng, {icon: SIA2Icon, riseOnHover: true});
         case "Pilgrimage":
             var SIA1Icon = L.icon({
-                iconUrl: 'static/img/PilgrimageIcon.png',
-                iconSize:     [40,24], // size of the icon
+                iconUrl: 'static/img/rm_pilgrimage.png',
+                iconSize:     [35,35], // size of the icon
             });
         return L.marker(latlng, {icon: SIA1Icon, riseOnHover: true});
         case "Migration":
             var SIA3Icon = L.icon({
-                iconUrl: 'static/img/MigrationIcon.png',
-                iconSize:     [40,24], // size of the icon
+                iconUrl: 'static/img/rm_migrationn.png',
+                iconSize:     [35,35], // size of the icon
             });
         return L.marker(latlng, {icon: SIA3Icon, riseOnHover: true});
         case "ArtAndFestival":
             var SIA4Icon = L.icon({
-                iconUrl: 'static/img/ArtAndFestIcon.png',
-                iconSize:     [40,24], // size of the icon
+                iconUrl: 'static/img/rm_artandfestival.png',
+                iconSize:     [35,35], // size of the icon
             });
         return L.marker(latlng, {icon: SIA4Icon, riseOnHover: true});
         case "Resilience":
             var SIA5Icon = L.icon({
-                iconUrl: 'static/img/ResilienceIcon.png',
-                iconSize:     [40,24], // size of the icon
+                iconUrl: 'static/img/rm_resilience.png',
+                iconSize:     [35,35], // size of the icon
             });
         return L.marker(latlng, {icon: SIA5Icon, riseOnHover: true});
         case "IntegratedLandscapeManagement":
             var SIA6Icon = L.icon({
-                iconUrl: 'static/img/LandscapeIcon.png',
-                iconSize:     [40,24], // size of the icon
+                iconUrl: 'static/img/rm_landscape.png',
+                iconSize:     [35,35], // size of the icon
             });
         return L.marker(latlng, {icon: SIA6Icon, riseOnHover: true});               
     }
@@ -294,6 +294,51 @@ function ReplicatorStyle(feature,latlng){
         return L.marker(latlng, {icon: SIA6Icon, riseOnHover: true});               
     }
 }
+
+function ReplicatorStyle2(feature,latlng){
+    switch (feature.properties["SIA"]){
+        case "SustainableFoodProduction":
+            var SIA2Icon=L.icon({
+                iconUrl: 'static/img/r_food.png',
+                iconSize:     [35,35], // size of the icon
+            });
+        return L.marker(latlng, {icon: SIA2Icon, riseOnHover: true});
+        case "Pilgrimage":
+            var SIA1Icon = L.icon({
+                iconUrl: 'static/img/r_pilgrimage.png',
+                iconSize:     [35,35], // size of the icon
+            });
+        return L.marker(latlng, {icon: SIA1Icon, riseOnHover: true});
+        case "Migration":
+            var SIA3Icon = L.icon({
+                iconUrl: 'static/img/r_migrationn.png',
+                iconSize:     [35,35], // size of the icon
+            });
+        return L.marker(latlng, {icon: SIA3Icon, riseOnHover: true});
+        case "ArtAndFestival":
+            var SIA4Icon = L.icon({
+                iconUrl: 'static/img/r_artandfestival.png',
+                iconSize:     [35,35], // size of the icon
+            });
+        return L.marker(latlng, {icon: SIA4Icon, riseOnHover: true});
+        case "Resilience":
+            var SIA5Icon = L.icon({
+                iconUrl: 'static/img/r_resilience.png',
+                iconSize:     [35,35], // size of the icon
+            });
+        return L.marker(latlng, {icon: SIA5Icon, riseOnHover: true});
+        case "IntegratedLandscapeManagement":
+            var SIA6Icon = L.icon({
+                iconUrl: 'static/img/r_landscape.png',
+                iconSize:     [35,35], // size of the icon
+            });
+        return L.marker(latlng, {icon: SIA6Icon, riseOnHover: true});               
+    }
+}
+
+
+
+
 function updateMap() {
     var roles=[]
     var sias=[]
@@ -383,7 +428,7 @@ function populateMap(result,roles) {
             replicatorJson.features.push(result.features[i]);
         }
     }
-    var geo_json_Replicators = L.geoJson(replicatorJson,{pointToLayer: ReplicatorStyle, onEachFeature:onEachEntity}).addTo(main_map);
+    var geo_json_Replicators = L.geoJson(replicatorJson,{pointToLayer: ReplicatorStyle2, onEachFeature:onEachEntity}).addTo(main_map);
     geo_json_Replicators.setStyle(function(feature) {return feature.properties.style;}); 
    
 }
@@ -593,7 +638,6 @@ function addBuildings() {
 
 //CODE TO ADD CITY TO THE MAP
 function townSidebar(properties) {
-    console.log(properties);
     content='<font size="2"><u onClick="hideDescription()" style="cursor: pointer;">Minimize/Expand</u>&ensp;<u style="cursor: pointer;" onClick="closeLateral()">Close</u></font>';
     content=content+'<h4 id="title">'+properties.TOWN_NAME+'</h4> <br><font size="2"><div id="extra"><font size="2"><br><b>Description</b><p>'+properties.DESCRIPTION+'</p>';
     content=content+'<p><b>Additional Information</b><br>Temporal range: '+properties['TEMPORAL RANGE']+'<br>Current: '+properties['CURRENT']+'<br>Historical: '+properties['HISTORICAL']+'<br></p>' ;
@@ -617,16 +661,6 @@ function TownStyle(feature,latlng) {
 
                 //return L.marker(latlng, {icon: TownIcon, riseOnHover: true});
     var marker=L.marker(latlng, {icon: TownIcon, riseOnHover: true});
-    marker.on('click', function() {
-    this.setIcon(
-        L.icon({
-                iconUrl: 'static/img/town4.png',
-                iconSize:     [42,42], // size of the icon
-            })
-    );
-
-    });
-
 
     //Uncomment to have the same markers
     //var marker=L.marker(latlng, {riseOnHover: true});
@@ -641,12 +675,24 @@ function onEachTown(feature, layer) {
     lateral_content=townSidebar(feature.properties);
     //layer.bindPopup(content,{autoPan:false,autoclose:false});
     layer.on('click', function(e){
-        //main_map.setView(e.latlng,12);
-        //console.log(layer);
-        
-        
-        layer.options.icon.options.iconUrl='static/img/town2_red.png';
+        main_map.setView(e.latlng);
         $('#lateral').html(lateral_content)
+        //console.log(layer);
+        if(clickedTown) {
+          clickedTown.setIcon(L.icon({
+                iconUrl: 'static/img/town4.png',
+                iconSize:     [42,42], // size of the icon
+            }));
+        }
+        var layer = e.target;
+        e.target.setIcon(L.icon({
+                iconUrl: 'static/img/town4_click.png',
+                iconSize:     [42,42], // size of the icon
+            }));
+        clickedTown = e.target;
+
+        info.update(layer.feature.properties);
+        
         //layer.getPopup().openPopup();
     });
 
@@ -703,8 +749,20 @@ function onEachSite(feature, layer) {
     }
     layer.bindPopup(content,{autoPan:false,autoclose:false});
     layer.on('click', function(e){
-        main_map.setView(e.latlng,12);
+        main_map.setView(e.latlng);
         $('#lateral').html(lateral_content)
+        if(clickedSite) {
+          clickedSite.setIcon(L.icon({
+                iconUrl: 'static/css/images/marker-icon.png',
+            }));
+        }
+        var layer = e.target;
+        e.target.setIcon(L.icon({
+                iconUrl: 'static/css/images/marker-icon_click.png',
+            }));
+        clickedSite = e.target;
+
+        info.update(layer.feature.properties);
         //layer.getPopup().openPopup();
     });
 
@@ -775,8 +833,10 @@ function hideOnZoom(){
             addSites();
 
             townLayer=true;
+            siteLayer=true;
             $('#townButton').toggle();
             $('#siteButton').toggle();
+            $('#imageButton').toggle();
             $('#imageContainer').toggle()
             //$('#imageFlow')[0].style.display='none'  
             createSlideShow();
@@ -787,13 +847,15 @@ function hideOnZoom(){
     else{
         $('#townButton')[0].style.display='none'
         $('#siteButton')[0].style.display='none'
+        $('#imageButton')[0].style.display='none'
         $('#imageContainer')[0].style.display='none'
         //$('#slideShow')[0].style.display='none'     
         main_map.eachLayer(function (layer){
             if (layer.feature && !layer.feature.properties.Role) {
                 if(layer.options.pane=='markerPane'){
                     main_map.removeLayer(layer);
-                    townLayer=false;    
+                    townLayer=false;
+                    siteLayer=false;    
                 }
             }   
         });  
@@ -934,12 +996,13 @@ function createSlideShow() {
 
 }
 
-
+/* OLD SLIDESHOW
 function updateSlideshow(argument) {
     photos=argument.images;
+
     slideShow='';
     for (var i = 0; i < photos.length; i++) {
-        var img = '<img src="data:image/jpg;base64,'+photos[i]+'" width="300px"/>'
+        var img = '<img src="data:image/jpg;base64,'+photos[i].binary.toString()+'" width="300px"/>'
         //img.attr('src', 'data:image/png;base64,' + photos[i]);
         var slide='<div class="mySlides">'+img+'</div>';
         slideShow=slideShow+slide;
@@ -948,15 +1011,15 @@ function updateSlideshow(argument) {
     slideShow=slideShow+'<a class="prev" onclick="plusSlides(-1)">&#10094;</a><a class="next" onclick="plusSlides(1)">&#10095;</a>'
     $('#slideShow').html(slideShow);
 }
+*/
 
-///testttttttt
 function updateFlow(argument) {
-
     photos=argument.images;
     slideShow='';
+    console.log(photos[0].coordinates);
     for (var i = 0; i < photos.length; i++) {
-        var img ='<div class="swiper-slide" style="width:300px"><img src="data:image/jpg;base64,'+photos[i]+'" height="150px margin-left: auto; margin-right: auto; display: block;"/></div>'
-        //img.attr('src', 'data:image/png;base64,' + photos[i]);
+        var img ='<div onClick="centerMap('+photos[0].coordinates[0]+','+photos[0].coordinates[1]+','+15+')" class="swiper-slide" style="width:300px"><img src="data:image/jpg;base64,'+photos[i].binary+'" height="150px margin-left: auto; margin-right: auto; display: block;"  title="'+photos[i].Name+'" /></div>'
+        //img.attr('src', 'data:image/png;base64,' + photos[i]);,
         slideShow=slideShow+img;
        // console.log(photos[i]);
     }
@@ -965,6 +1028,13 @@ function updateFlow(argument) {
 
 
 }
+
+function showImages() {
+$('#imageContainer').toggle()
+}
+
+
+
 
 function createDropwdown() {
     var roles=[]
@@ -987,7 +1057,7 @@ function createDropwdown() {
         method: 'GET',      
         url: "/querySIA",
         data: {Roles:JSON.stringify(roles), SIAs:JSON.stringify(sias)},
-        dataType: 'json',
+        dataType: 'json',   
 
         success: function(response) {
             result=response;
@@ -996,12 +1066,12 @@ function createDropwdown() {
             for (var i = 0; i < result.features.length; i++) {
                 if (result.features[i].properties.Role=="RM")                    
                 {   
-                    dropdowncontentRM=dropdowncontentRM+'<a href="#" onClick="centerMap('+result.features[i].geometry.coordinates[0]+' ,'+result.features[i].geometry.coordinates[1]+')">'+result.features[i].properties.Name+'</a>'
+                    dropdowncontentRM=dropdowncontentRM+'<a href="#" style="color: '+SIAColor(result.features[i])+'" onClick="centerMap('+result.features[i].geometry.coordinates[0]+' ,'+result.features[i].geometry.coordinates[1]+','+9+')">'+result.features[i].properties.Name+'</a>'
                     //dropdowncontentRM=dropdowncontentRM+'<a href="#" onClick="centerMap('+result.features[i].geometry.coordinates[0]+' ,'+result.features[i].geometry.coordinates[1]+')">'+result.features[i].properties.Name+' (SIA: '+result.features[i].properties.SIA+')</a>'
                 }
                 if (result.features[i].properties.Role=="R")
                 {   
-                    dropdowncontentR=dropdowncontentR+'<a href="#" onClick="centerMap('+result.features[i].geometry.coordinates[0]+' ,'+result.features[i].geometry.coordinates[1]+')">'+result.features[i].properties.Name+'</a>'
+                    dropdowncontentR=dropdowncontentR+'<a href="#" style="color: '+SIAColor(result.features[i])+'" onClick="centerMap('+result.features[i].geometry.coordinates[0]+' ,'+result.features[i].geometry.coordinates[1]+','+9+')">'+result.features[i].properties.Name+'</a>'
                 }
             }
             $('#rmlist').html(dropdowncontentRM);
@@ -1013,9 +1083,29 @@ function createDropwdown() {
 
 }
 
-function centerMap(x,y) {
+function centerMap(x,y,zoom) {
     center=L.latLng(y,x);
-    main_map.setView(center,9);
+    main_map.setView(center,zoom);
     closeLateral();
 
+}
+
+
+function SIAColor(feature){
+    switch (feature.properties.SIA)
+            {
+
+                case "SustainableFoodProduction":
+                return '#29e12c';
+                case "Pilgrimage":
+                return '#633d03';
+                case "Migration":
+                return'#a8a8a8';
+                case "ArtAndFestival":
+                return '#f0b629';
+                case "Resilience":
+                return '#f07929';
+                case "IntegratedLandscapeManagement":
+                return '#0d5c1e';               
+        }
 }

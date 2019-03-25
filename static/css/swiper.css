@@ -11,10 +11,13 @@
  */
 .swiper-container {
   margin: 0 auto;
-  position: relative;
+  position: fixed;
   overflow: hidden;
   list-style: none;
+  width:50%;
   padding: 0;
+  bottom: 0;
+  right :0;
   /* Fix of Webkit flickering */
   z-index: 1;
 }

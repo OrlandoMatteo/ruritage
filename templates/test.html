@@ -15,6 +15,7 @@
 
 -->
     <script src="static/js/leaflet.awesome-markers.js"></script>
+    <script src="static/js/RM1Entities.js"></script>
     <link rel="stylesheet" type="text/css" href="static/css/leaflet.css">
     <link rel="stylesheet" type="text/css" href="static/css/swiper.css">
 
@@ -140,6 +141,7 @@ img.resize {
                     <button class="btn btn-primary" onclick="showSIAs()">SIAs</button>
                      <button class="btn btn-primary" style="display: none" id="townButton" onclick="showTowns()">Towns</button>
                      <button class="btn btn-primary" style="display: none" id="siteButton" onclick="showSites()">Sites</button>
+                     <button class="btn btn-success" style="display: none" id="imageButton" onclick="showImages()">Images</button>
 
                 </div>
                 <div id="roles" style="" class="rounddiv"><h4>Show on the map:</h4>
@@ -174,14 +176,13 @@ img.resize {
                 </div>        
             </div>
         </div>
-        <div class="swiper-container" style="position: fixed; bottom: 0" >
-                    <div class="swiper-wrapper" id="imageContainer" style="display: none;">
-                      
-                    </div>
-                    <!-- Add Pagination -->
-                    <div class="swiper-pagination"style="position: fixed"></div>
-                </div>
-                       
+            <div class="swiper-container">
+              <div class="swiper-wrapper" id="imageContainer" style="display: none;">
+                
+              </div>
+              <!-- Add Pagination -->
+              <div class="swiper-pagination"style="position: fixed"></div>
+            </div>       
             <!--<button onclick="">Show area</button>
             <button onclick="add3d()">add3d</button>-->
 
@@ -191,7 +192,7 @@ img.resize {
 <script>
     var swiper = new Swiper('.swiper-container', {
       effect: 'coverflow',
-      grabCursor: true,
+      grabCursor: false,
       centeredSlides: true,
       slidesPerView: 'auto',
       coverflowEffect: {
@@ -277,11 +278,13 @@ function showSlides(n) {
 
     var example=L.tileLayer('https://api.mapbox.com/styles/v1/matteo-orlando/cjrcb08ss2adz2to56dqze3e2/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoibWF0dGVvLW9ybGFuZG8iLCJhIjoiY2puYndpaWxtMDhpZjN3cGU0cjYxNjl2MyJ9.seN7FeS88tx9yYwqMk5QIw',{opacity:0.5});
 
-
     var camino=L.tileLayer('https://api.mapbox.com/styles/v1/matteo-orlando/cjrw4js6t20ed1frv8uui4k2k/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoibWF0dGVvLW9ybGFuZG8iLCJhIjoiY2puYndpaWxtMDhpZjN3cGU0cjYxNjl2MyJ9.seN7FeS88tx9yYwqMk5QIw');
 
-    var topology=L.tileLayer('https://tile.thunderforest.com/landscape/{z}/{x}/{y}.png?apikey=d8abaa72b3604758be5fc3d52354cff0');
-
+    //var topology=L.tileLayer('https://tile.thunderforest.com/landscape/{z}/{x}/{y}.png?apikey=d8abaa72b3604758be5fc3d52354cff0');
+    var topology=L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
+                              maxZoom: 17,
+                              attribution: 'Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)'
+                            });
     var imageUrl='/static/img/FCM_21-1.png'
     var imageBounds=[[5.985,-77.5],[3.465,-73.9]]
     var image_layer=L.imageOverlay(imageUrl,imageBounds)
@@ -314,7 +317,7 @@ var opacitySlider2 = new L.Control.opacitySlider();
 
 main_map.addControl(opacitySlider1);
 //main_map.addControl(opacitySlider2);
-opacitySlider1.setOpacityLayer([image_layer,Esri_WorldImagery]);
+opacitySlider1.setOpacityLayer([image_layer,Esri_WorldImagery,topology]);
 //opacitySlider2.setOpacityLayer(Esri_WorldImagery);
 
 
@@ -337,7 +340,8 @@ var townLayer=false;
 var buildingsLayer=false;
 var siteLayer=false;
 
-var clickedTown=null;
+var clickedTown;
+var clickedSite;
 
 main_map.on('zoomend', function() {
 hideOnZoom(); 
