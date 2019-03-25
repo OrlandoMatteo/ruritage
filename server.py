@@ -1,4 +1,3 @@
-
 from flask import Flask, render_template, request, redirect, Response, jsonify,send_file
 import base64
 import random, json
