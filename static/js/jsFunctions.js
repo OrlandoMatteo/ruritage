@@ -72,6 +72,7 @@ function createPopup(feature_properties) {
 
     var table='<h4 id="title">'+feature_properties.Name+'</h4> <br><font size="2"><div id="extra"><font size="2"><br><b>Description</b><p>'+feature_properties.Description+'</p>';
     if (feature_properties.Role=='RM') {
+        table+='<br><b onClick="viewPractices('+feature_properties.ID+')" >View Best Practices</b><br>';
         table+='<br><b>Main Economic Sector</b><br>'+feature_properties.MainEconomicSector+'<br>';
         table+='<br><b>Challenges</b><br><table class="table" style="width:100%" >';
 
@@ -126,6 +127,7 @@ function onEachEntity(feature, layer) {
             if (livello.feature) {
                 if(livello.feature.properties.Role){
                     if (livello.feature.properties.ID==id){
+                        //console.log(feature.properties);
                         content=createPopup(livello.feature.properties);
                         main_map.setView(e.latlng, 9);
                         $('#lateral').html('<font size="2"><u onClick="hideDescription()" style="cursor: pointer;">Minimize/Expand</u>&ensp;<u style="cursor: pointer;" onClick="closeLateral()">Close</u></font>'+content);
@@ -853,13 +855,16 @@ function hideOnZoom(){
         $('#siteButton')[0].style.display='none';
         $('#imageButton')[0].style.display='none';
         $('#imageContainer')[0].style.display='none';
+        $('#imageContainer').html(''); 
+        townLayer=false;
+        siteLayer=false;
         //$('#slideShow')[0].style.display='none'     
         main_map.eachLayer(function (layer){
             if (layer.feature && !layer.feature.properties.Role) {
                 if(layer.options.pane=='markerPane'){
                     main_map.removeLayer(layer);
-                    townLayer=false;
-                    siteLayer=false;    
+                   
+                      
                 }
             }   
         });  
@@ -1018,19 +1023,19 @@ function updateSlideshow(argument) {
 */
 
 function updateFlow(argument) {
-    photos=argument.images;
-    slideShow='';
-    console.log(photos[0].coordinates);
-    for (var i = 0; i < photos.length; i++) {
-        var img ='<div onClick="centerMap('+photos[0].coordinates[0]+','+photos[0].coordinates[1]+','+15+')" class="swiper-slide" style="width:300px"><img src="data:image/jpg;base64,'+photos[i].binary+'" height="150px margin-left: auto; margin-right: auto; display: block;"  title="'+photos[i].Name+'" /></div>';
-        //img.attr('src', 'data:image/png;base64,' + photos[i]);,
-        slideShow=slideShow+img;
-       // console.log(photos[i]);
+    if (argument.images.length!=0) {    
+        photos=argument.images;
+        slideShow='';
+        for (var i = 0; i < photos.length; i++) {
+            var img ='<div onClick="centerMap('+photos[0].coordinates[0]+','+photos[0].coordinates[1]+','+15+')" class="swiper-slide" style="width:300px"><img src="data:image/jpg;base64,'+photos[i].binary+'" height="150px margin-left: auto; margin-right: auto; display: block;"  title="'+photos[i].Name+'" /></div>';
+            //img.attr('src', 'data:image/png;base64,' + photos[i]);,
+            slideShow=slideShow+img;
+           // console.log(photos[i]);
+        }
+        $('#imageContainer').html(slideShow);
+        swiper.update();
+
     }
-    $('#imageContainer').html(slideShow);
-    swiper.update();
-
-
 }
 
 function showImages() {
@@ -1114,4 +1119,27 @@ function SIAColor(feature){
                 case "IntegratedLandscapeManagement":
                 return '#0d5c1e';               
         }
+}
+
+
+function viewPractices(RmID) {
+    var queryResult=$.ajax({
+        method: 'GET',      
+        url: "/queryBP",
+        data: {RmID:JSON.stringify(RmID)},
+        dataType: 'json',
+
+        success: function(response) {
+            x=response;
+            modelActionTable(x);
+            
+    }});
+    
+}
+
+function modelActionTable(d) {
+    table='<table class="table>             <thead>                 <tr>                    <th rowspan = "2">Related SIA</th>                    <th rowspan = "2">Significant Crosscutting</th>                    <th rowspan = "2">Replicability</th>                    <th rowspan = "2">Key Resources</th>                    <th colspan = "3">Challenges</th>                    <th rowspan = "2">Drivers</th>                    <th colspan = "3">Context</th>                    <th colspan = "5">Capital transfer mechanism</th>                    <th rowspan = "2">Knowledge building</th>                    <th rowspan = "2">Barriers</th>                    <th rowspan = "2">Co-benefits</th>                    <th colspan = "3">Process</th>                    <th>Keywords</th>                </tr>                <tr>                    <td>Challenge</td>                    <td>Yes/partially</td>                    <td>Description</td>                    <td>Geography</td>                    <td>Main Economic Sector</td>                    <td>Size of influence</td>                    <td>Capitals</td>                    <td>Relevance</td>                    <td>Initial</td>                    <td>Developed</td>                    <td>Obtained</td>                    <td>Milestone</td>                    <td>Year</td>                    <td>Conceptual step</td>                </tr>            </thead>            </table>';
+    
+    $('#bpcontainer').html(table);
+    $('#bpModal')[0].style.display='block';
 }

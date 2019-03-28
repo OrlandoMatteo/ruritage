@@ -22,7 +22,7 @@ with open('dbCredentials.json') as f:
 	rmTowns=client.ruritage.rmTowns
 	photos=client.ruritage.images
 	sites=client.ruritage.sites
-
+	modelAction=client.ruritage.bestPractices
 @app.route('/')
 def index():
 	return render_template('testindex.html')
@@ -127,35 +127,17 @@ def querySIA():
 @app.route('/queryBP',methods=['GET','POST'])
 def queryBP():
 
-	SIAs=request.args.get('SIAs').replace('"',"'")[1:-1].split(',')
-	CCs=request.args.get('CCs').replace('"',"'")[1:-1].split(',')
-	SIAs=[x.encode('UTF8') for x in SIAs]
-	CCs=[x.encode('UTF8') for x in CCs]
+	RM=request.args.get('RmID')
 
-	SIAsList=', '
-	SIAsList=SIAsList.join(SIAs)
-	CCsList=', '
-	CCsList=CCsList.join(CCs)
+	output={}
+	output['data']=[]
 
-	cnx = connectToDB(dbCredential)
-	cursor = cnx.cursor()
-
-
-	query_template="SELECT BestPractice.idBestPractice, BestPractice.BPName,RoleModel.Name, SIA.SIA, CrossCutting.CCName\
-	FROM BestPractice\
-	LEFT JOIN BPtoCC ON BestPractice.idBestPractice = BPtoCC.idBP\
-	LEFT JOIN CrossCutting ON BPtoCC.idCC = CrossCutting.idCrossCutting\
-	LEFT JOIN SIA ON BestPractice.idSIA = SIA.idSIA\
-	LEFT JOIN RoleModel ON BestPractice.idRM = RoleModel.idRoleModel\
-	where CrossCutting.idString in (%(x)s)\
-	AND SIA.SIA IN (%(y)s) ;"
-	query=query_template%{"x":CCsList,"y":SIAsList}
-
-	cursor.execute(query)
-	row_headers=[x[0] for x in cursor.description]
-	rv=cursor.fetchall()
-	BPJSON=queryToBPJSON(row_headers,rv)
-	return json.dumps(BPJSON)
+	invalid={'_id'}
+	for bp in modelAction.find({'RM': 'rm'+RM},no_cursor_timeout=True):
+		action={x: bp[x] for x in bp if x not in invalid}
+		output['data'].append(action)	
+	
+	return json.dumps(output)
 
 @app.route('/RMAreas',methods=['GET','POST'])
 def RMAreas():
