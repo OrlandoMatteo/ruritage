@@ -1778,16 +1778,16 @@ pre code {
 .table-info,
 .table-info > th,
 .table-info > td {
-  background-color: #bee5eb;
+  background-color: #6db3ff;
 }
 
 .table-hover .table-info:hover {
-  background-color: #abdde5;
+  background-color: #6db3ff;
 }
 
 .table-hover .table-info:hover > td,
 .table-hover .table-info:hover > th {
-  background-color: #abdde5;
+  background-color: #6db3ff;
 }
 
 .table-warning,

@@ -72,7 +72,7 @@ function createPopup(feature_properties) {
 
     var table='<h4 id="title">'+feature_properties.Name+'</h4> <br><font size="2"><div id="extra"><font size="2"><br><b>Description</b><p>'+feature_properties.Description+'</p>';
     if (feature_properties.Role=='RM') {
-        table+='<br><b onClick="viewPractices('+feature_properties.ID+')" >View Best Practices</b><br>';
+        table+='<br><b style="cursor: pointer; color:blue" onClick="viewPractices('+feature_properties.ID+')" ><u>View Best Practices</u></b><br>';
         table+='<br><b>Main Economic Sector</b><br>'+feature_properties.MainEconomicSector+'<br>';
         table+='<br><b>Challenges</b><br><table class="table" style="width:100%" >';
 
@@ -1138,8 +1138,99 @@ function viewPractices(RmID) {
 }
 
 function modelActionTable(d) {
-    table='<table class="table>             <thead>                 <tr>                    <th rowspan = "2">Related SIA</th>                    <th rowspan = "2">Significant Crosscutting</th>                    <th rowspan = "2">Replicability</th>                    <th rowspan = "2">Key Resources</th>                    <th colspan = "3">Challenges</th>                    <th rowspan = "2">Drivers</th>                    <th colspan = "3">Context</th>                    <th colspan = "5">Capital transfer mechanism</th>                    <th rowspan = "2">Knowledge building</th>                    <th rowspan = "2">Barriers</th>                    <th rowspan = "2">Co-benefits</th>                    <th colspan = "3">Process</th>                    <th>Keywords</th>                </tr>                <tr>                    <td>Challenge</td>                    <td>Yes/partially</td>                    <td>Description</td>                    <td>Geography</td>                    <td>Main Economic Sector</td>                    <td>Size of influence</td>                    <td>Capitals</td>                    <td>Relevance</td>                    <td>Initial</td>                    <td>Developed</td>                    <td>Obtained</td>                    <td>Milestone</td>                    <td>Year</td>                    <td>Conceptual step</td>                </tr>            </thead>            </table>';
+    table='<span class="close" onClick="closeModal()">&times;</span> <table class="table">             <thead>                 <tr>                    <td style="font-size:12px; font-weight:bold" rowspan = "2">Related SIA</td>      <td style="font-size:12px; font-weight:bold" rowspan = "2">Significant Crosscutting</td style="font-size:12px; font-weight:bold">                    <td style="font-size:12px; font-weight:bold" rowspan = "2">Replicability</td style="font-size:12px; font-weight:bold">                    <td style="font-size:12px; font-weight:bold" rowspan = "2">Key Resources</td style="font-size:12px; font-weight:bold">                    <td style="font-size:12px; font-weight:bold" colspan = "3">Challenges</td style="font-size:12px; font-weight:bold">                    <td style="font-size:12px; font-weight:bold" rowspan = "2">Drivers</td style="font-size:12px; font-weight:bold">                    <td style="font-size:12px; font-weight:bold" colspan = "3">Context</td style="font-size:12px; font-weight:bold">                    <td style="font-size:12px; font-weight:bold" colspan = "5">Capital transfer mechanism</td style="font-size:12px; font-weight:bold">                    <td style="font-size:12px; font-weight:bold" rowspan = "2">Knowledge building</td style="font-size:12px; font-weight:bold">                    <td style="font-size:12px; font-weight:bold" rowspan = "2">Barriers</td style="font-size:12px; font-weight:bold">                    <td style="font-size:12px; font-weight:bold" rowspan = "2">Co-benefits</td style="font-size:12px; font-weight:bold">                    <td style="font-size:12px; font-weight:bold" colspan = "3">Process</td style="font-size:12px; font-weight:bold">                    <td style="font-size:12px; font-weight:bold">Keywords</td style="font-size:12px">                </tr>                <tr>                    <td style="font-size:12px">Challenge</td>                    <td style="font-size:12px">Yes/partially</td>                    <td style="font-size:12px">Description</td>                    <td style="font-size:12px">Geography</td>                    <td style="font-size:12px">Main Economic Sector</td>                    <td style="font-size:12px">Size of influence</td>                    <td style="font-size:12px">Capitals</td>                    <td style="font-size:12px">Relevance</td>                    <td style="font-size:12px">Initial</td>                    <td style="font-size:12px">Developed</td>                    <td style="font-size:12px">Obtained</td>                    <td style="font-size:12px">Milestone</td>                    <td style="font-size:12px">Year</td>                    <td style="font-size:12px">Conceptual step</td>                </tr>            </thead><tbody></tbody>            </table>';
     
-    $('#bpcontainer').html(table);
+    x=d['data'][0].Practices;
+    console.log(x);
+    RelatedSIa='<p><b>Related SIA</b><br>'+x['RELATED SIA'][0]+'</p>';
+
+    CrossCutting='<p><b>Significant Crosscutting</b><br>'+x['SIGNIFICANT CROSS-CUTTING']+'</p>';
+
+    Replicability='<p><b>Replicability</b><br>'+x['REPLICABILITY']+'</p>';
+
+    KeyResources='<p><b>Key Resources</b>';
+    for (var i = 0; i < x['KEY RESOURCES'].length; i++) {
+        KeyResources=+x['KEY RESOURCES'][i]+'&nbsp;';
+    }
+    KeyResources+='</p>';
+
+    Challenges='<p><table class="table table-hover"><thead class="table-info">    <tr>        <th style="font-weight:bold; font-size:18px" colspan = "3">Challenges</th>    </tr>    <tr>        <th class="table-primary">Challenge</th class="table-primary">        <th class="table-primary">Yes/partially</th class="table-primary">        <th class="table-primary">Description</th class="table-primary">    </tr></thead><tbody>';
+    for (var i = 0; i < x.CHALLENGES.length; i++) {
+        Challenges+='<tr>';
+        Challenges+='<td>'+x.CHALLENGES[i].CHALLENGE+'</td>';
+        Challenges+='<td>'+x.CHALLENGES[i]['YES/PARTIALLY']+'</td>';
+        Challenges+='<td>'+x.CHALLENGES[i].DESCRIPTION+'</td>';
+        Challenges+='</tr>';
+
+        }
+    Challenges+='</tbody></table></p>';
+
+    Drivers='<p><b>Drivers</b>';
+    for (var i = 0; i < x.DRIVERS.length; i++) {
+        Drivers=+x.DRIVERS[i]+'&nbsp;';
+    }
+    Drivers+='</p>';
+
+    CTM='<p><table class="table table-hover"><thead class="table-info">    <tr>        <th style="font-weight:bold; font-size:18px" colspan = "5">Capital Transfer Mechanism</th>    </tr>    <tr>        <th class="table-primary">Capitals</th>        <th class="table-primary">Relevance</th>        <th class="table-primary">Initial</th> <th class="table-primary">Developed</th> <th class="table-primary">Obtained</th>    </tr></thead><tbody>';
+    for (var i = 0; i < x['CAPITAL TRANSFER MECHANISM'].length; i++) {
+        CTM+='<tr>';
+        CTM+='<td>'+x['CAPITAL TRANSFER MECHANISM'][i].CAPITALS+'</td>';
+        CTM+='<td>'+x['CAPITAL TRANSFER MECHANISM'][i].RELEVANCE+'</td>';
+        CTM+='<td>'+x['CAPITAL TRANSFER MECHANISM'][i].INITIAL+'</td>';
+        CTM+='<td>'+x['CAPITAL TRANSFER MECHANISM'][i].DEVELOPED+'</td>';
+        CTM+='<td>'+x['CAPITAL TRANSFER MECHANISM'][i].OBTAINED+'</td>';
+        CTM+='</tr>';
+
+        }
+    CTM+='</tbody></table></p>';
+
+    KnowledgeBuilding='<p><b>Knowledge Building</b></p>';
+     for (var i = 0; i < x['KNOWLEDGE BUILDING']; i++) {
+        KnowledgeBuilding=+x['KNOWLEDGE BUILDING'][i]+'&nbsp;';
+    }
+    KnowledgeBuilding+='</p>';
+
+    Barriers='<p><b>Barriers</b></p>';
+    for (var i = 0; i < x.BARRIERS; i++) {
+        Barriers=+x.BARRIERS[i]+'&nbsp;';
+    }
+    Barriers+='</p>';
+
+    CoBenefit='<p><b>CoBenefit</b></p>';
+    for (var i = 0; i < x['CO-BENEFITS']; i++) {
+        CoBenefit=+x['CO-BENEFITS'][i]+'&nbsp;';
+    }
+    CoBenefit+='</p>';
+
+
+    Process='<p><table class="table table-hover"><thead class="table-info">    <tr>        <th style="font-weight:bold; font-size:18px" colspan = "3">Process</th>    </tr>    <tr>        <th class="table-primary">Milestones</th>        <th class="table-primary">Year</th>        <th class="table-primary">Conceputal step</th>     </tr></thead><tbody>';
+    for (var i = 0; i < x.PROCESS.length; i++) {
+        Process+='<tr>';
+        Process+='<td>'+x.PROCESS[i].MILESTONE+'</td>';
+        Process+='<td>'+x.PROCESS[i].YEAR+'</td>';
+        Process+='<td>'+x.PROCESS[i]['CONCEPTUAL STEP']+'</td>';
+        Process+='</tr>';    
+        }
+    Process+='</tbody></table></p>';
+
+
+    Keywords='<p><b>Keywords</b></p>';
+    for (var i = 0; i < x.KEYWORDS; i++) {
+        Keywords=+x.KEYWORDS[i]+'&nbsp;';
+    }
+    Keywords+='</p>';
+
+    modalContent='<span class="close" onClick="closeModal()">&times;</span> '+RelatedSIa+CrossCutting+Replicability+Challenges+CTM+KnowledgeBuilding+Barriers+CoBenefit+Process+Keywords;
+    modalContent=modalContent.replace(/undefined/g,'');
+
+
+
+    $('#bpcontainer').html(modalContent);
     $('#bpModal')[0].style.display='block';
+
+}
+
+function closeModal(){
+    $('#bpModal')[0].style.display='none';
+
 }
